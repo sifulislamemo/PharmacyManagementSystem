@@ -519,23 +519,23 @@ public class CompanyApp extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-//        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
-//        if(option == 0){
-//            String sql = "delete from branch where branch_code = ?";
-//            try {
-//                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-//                ps.setString(1, branchCode.getText());
-//                int status = ps.executeUpdate();
-//                if(status >0){
-//                    JOptionPane.showMessageDialog(rootPane, "branch deleted!");
-//                }
-//            } catch (SQLException ex) {
-//                System.out.println(ex);
-//            }
-//        }else{
-//            JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
-//        }
-//        branchCode.setText("");
+        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+        if(option == 0){
+            String sql = "delete from company where company_code = ?";
+            try {
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ps.setString(1, companyCode.getText());
+                int status = ps.executeUpdate();
+                if(status >0){
+                    JOptionPane.showMessageDialog(rootPane, "company deleted!");
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
+        }
+        companyCode.setText("");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
