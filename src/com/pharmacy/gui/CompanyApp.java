@@ -5,7 +5,19 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.CompanyDao;
+import com.pharmacy.model.Company;
+import com.pharmacy.util.DBConnection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +30,7 @@ public class CompanyApp extends javax.swing.JFrame {
      */
     public CompanyApp() {
         initComponents();
+        getAllCompany();
     }
 
     /**
@@ -49,19 +62,18 @@ public class CompanyApp extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        companyCode = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
+        companyAddress = new javax.swing.JTextField();
+        companyName = new javax.swing.JTextField();
+        companyContractNo = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        companyTable = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -270,27 +282,7 @@ public class CompanyApp extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel22.setText("Contract No.");
 
-        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
-        btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("ADD");
-
-        btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
-        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("UPDATE");
-
-        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
-        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("DELETE");
-
-        btnClear.setBackground(new java.awt.Color(0, 0, 0));
-        btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear.setText("CLEAR");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        companyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -301,7 +293,37 @@ public class CompanyApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(companyTable);
+
+        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
+        btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
+        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
+        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -316,32 +338,30 @@ public class CompanyApp extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(companyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel22)
                                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(39, 39, 39)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(companyContractNo, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(companyAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(343, 343, 343))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnUpdate)
-                                .addGap(56, 56, 56)
-                                .addComponent(btnDelete)
-                                .addGap(49, 49, 49)
-                                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(189, 189, 189))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(189, 189, 189))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(btnUpdate)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnDelete)
+                        .addGap(298, 298, 298))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,29 +370,27 @@ public class CompanyApp extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(companyCode, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(companyName, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(companyContractNo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5))
+                        .addComponent(companyAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(56, 56, 56)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(45, 45, 45)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -466,6 +484,60 @@ public class CompanyApp extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_logoutMenuActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        Company company = new Company();
+        company.setCompanyCode(companyCode.getText());
+        company.setCompanyName(companyName.getText());
+        company.setCompanyContractNo(companyContractNo.getText());
+        company.setCompanyAddress(companyAddress.getText());
+        
+        int status = new CompanyDao().save(company);
+
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Company Saved!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Company NOT Saved!");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        Company company = new Company();
+        company.setCompanyCode(companyCode.getText());
+        company.setCompanyName(companyName.getText());
+        company.setCompanyContractNo(companyContractNo.getText());
+        company.setCompanyAddress(companyAddress.getText());
+
+        int status = new CompanyDao().update(company);
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Company Update!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Company NOT Update!");
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+//        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+//        if(option == 0){
+//            String sql = "delete from branch where branch_code = ?";
+//            try {
+//                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+//                ps.setString(1, branchCode.getText());
+//                int status = ps.executeUpdate();
+//                if(status >0){
+//                    JOptionPane.showMessageDialog(rootPane, "branch deleted!");
+//                }
+//            } catch (SQLException ex) {
+//                System.out.println(ex);
+//            }
+//        }else{
+//            JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
+//        }
+//        branchCode.setText("");
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -507,10 +579,14 @@ public class CompanyApp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton branchMenu;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JTextField companyAddress;
+    private javax.swing.JTextField companyCode;
+    private javax.swing.JTextField companyContractNo;
     private javax.swing.JButton companyMenu;
+    private javax.swing.JTextField companyName;
+    private javax.swing.JTable companyTable;
     private com.toedter.calendar.demo.DateChooserPanelBeanInfo dateChooserPanelBeanInfo1;
     private com.toedter.calendar.DateUtil dateUtil1;
     private javax.swing.JButton homeDeliveryMenu;
@@ -525,11 +601,6 @@ public class CompanyApp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JButton logoutMenu;
     private javax.swing.JButton medicineItemMenu;
     private javax.swing.JButton medicineMenu;
@@ -539,4 +610,71 @@ public class CompanyApp extends javax.swing.JFrame {
     private javax.swing.JButton stockReportMenu;
     private javax.swing.JButton telemedicineMenu;
     // End of variables declaration//GEN-END:variables
+private void getAllCompany() {
+        // TODO add your handling code here:
+
+        List<Company> c = new CompanyDao().getAll();
+
+        for (Company company : c) {
+//            System.out.println(company.getCompanyCode()+" "+company.getCompanyName()+" "+company.getCompanyContractNo()+" "+company.getCompanyAddress());
+        }
+
+        try {
+            String columns[] = {"id", "company_code", "company_name", "company_contract_no", "company_address"};
+            String data[][] = new String[c.size()][10];
+            String sql = "select * from company";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            int i = 0;
+            while (res.next()) {
+                int id = res.getInt("id");
+                String cCode = res.getString("company_code");
+                String cName = res.getString("company_name");
+                String cContractNo = res.getString("company_contract_no");
+                String cAddress = res.getString("company_address");
+                data[i][0] = id + "";
+                data[i][1] = cCode;
+                data[i][2] = cName;
+                data[i][3] = cContractNo;
+                data[i][4] = cAddress;
+                i++;
+            }
+
+            DefaultTableModel model = new DefaultTableModel(data, columns);
+            companyTable.setModel(model);
+            companyTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    companyCode.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 1).toString());
+                    companyName.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 2).toString());
+                    companyContractNo.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 3).toString());
+                    companyAddress.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 4).toString());
+                    
+//                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
+                  
+                    
+                    
+                }
+            });
+//            JTable table = new JTable(data, columns);
+//            table.setShowGrid(true);
+//            table.setShowVerticalLines(true);
+//            JScrollPane pane = new JScrollPane(table);
+//            JFrame f = new JFrame();
+//            JPanel panel = new JPanel();
+//            panel.add(pane);
+//            f.add(panel);
+//            f.setSize(500, 250);
+//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            f.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }
+
+
+
