@@ -5,7 +5,19 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.MedicineItemDao;
+import com.pharmacy.model.MedicineItem;
+import com.pharmacy.util.DBConnection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +30,7 @@ public class MedicineItemApp extends javax.swing.JFrame {
      */
     public MedicineItemApp() {
         initComponents();
+        getAllCompany();
     }
 
     /**
@@ -53,11 +66,10 @@ public class MedicineItemApp extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         medicineItemName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnClear = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
+        medicineItemTable = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -260,7 +272,7 @@ public class MedicineItemApp extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Medicine Item");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        medicineItemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -271,27 +283,37 @@ public class MedicineItemApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        btnClear.setBackground(new java.awt.Color(0, 0, 0));
-        btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear.setText("CLEAR");
-
-        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
-        btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("ADD");
+        jScrollPane1.setViewportView(medicineItemTable);
 
         btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
         btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setBackground(new java.awt.Color(0, 0, 0));
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
+        btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -313,16 +335,14 @@ public class MedicineItemApp extends javax.swing.JFrame {
                         .addGap(353, 353, 353))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(223, 223, 223))
+                        .addGap(220, 220, 220))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60)
                         .addComponent(btnUpdate)
                         .addGap(56, 56, 56)
                         .addComponent(btnDelete)
-                        .addGap(49, 49, 49)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(215, 215, 215))))
+                        .addGap(298, 298, 298))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,13 +356,12 @@ public class MedicineItemApp extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(medicineItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(95, 95, 95)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -436,6 +455,57 @@ public class MedicineItemApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_medicineMenuActionPerformed
 
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        MedicineItem medicineItem = new MedicineItem();
+        medicineItem.setMedicineCode(medicineCode.getText());
+        medicineItem.setMedicineItemName(medicineItemName.getText());
+     
+        int status = new MedicineItemDao().update(medicineItem);
+
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Medicine Item Update!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Medicine Item NOT Update!");
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+        if(option == 0){
+            String sql = "delete from medicine_item where medicine_code = ?";
+            try {
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ps.setString(1, medicineCode.getText());
+                int status = ps.executeUpdate();
+                if(status >0){
+                    JOptionPane.showMessageDialog(rootPane, "Medicine Item deleted!");
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
+        }
+        medicineCode.setText("");
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+        MedicineItem medicineItem = new MedicineItem();
+        medicineItem.setMedicineCode(medicineCode.getText());
+        medicineItem.setMedicineItemName(medicineItemName.getText());
+     
+        int status = new MedicineItemDao().save(medicineItem);
+
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Medicine Item Saved!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Medicine Item NOT Saved!");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -477,7 +547,6 @@ public class MedicineItemApp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton branchMenu;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;
@@ -493,11 +562,11 @@ public class MedicineItemApp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutMenu;
     private javax.swing.JTextField medicineCode;
     private javax.swing.JButton medicineItemMenu;
     private javax.swing.JTextField medicineItemName;
+    private javax.swing.JTable medicineItemTable;
     private javax.swing.JButton medicineMenu;
     private javax.swing.JButton medicineReportMenu;
     private javax.swing.JButton salesMenu;
@@ -505,4 +574,62 @@ public class MedicineItemApp extends javax.swing.JFrame {
     private javax.swing.JButton stockReportMenu;
     private javax.swing.JButton telemedicineMenu;
     // End of variables declaration//GEN-END:variables
+private void getAllCompany() {
+        // TODO add your handling code here:
+
+        List<MedicineItem> m = new MedicineItemDao().getAll();
+
+        for (MedicineItem medicineItem : m) {
+//            System.out.println(company.getCompanyCode()+" "+company.getCompanyName()+" "+company.getCompanyContractNo()+" "+company.getCompanyAddress());
+        }
+
+        try {
+            String columns[] = {"id", "medicine_code", "medicine_item_name"};
+            String data[][] = new String[m.size()][10];
+            String sql = "select * from medicine_item";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            int i = 0;
+            while (res.next()) {
+                int id = res.getInt("id");
+                String mCode = res.getString("medicine_code");
+                String mName = res.getString("medicine_item_name");
+                data[i][0] = id + "";
+                data[i][1] = mCode;
+                data[i][2] = mName;
+                i++;
+            }
+
+            DefaultTableModel model = new DefaultTableModel(data, columns);
+            medicineItemTable.setModel(model);
+            medicineItemTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    medicineCode.setText(medicineItemTable.getValueAt(medicineItemTable.getSelectedRow(), 1).toString());
+                    medicineItemName.setText(medicineItemTable.getValueAt(medicineItemTable.getSelectedRow(), 2).toString());
+                 
+                    
+//                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
+                  
+                    
+                    
+                }
+            });
+//            JTable table = new JTable(data, columns);
+//            table.setShowGrid(true);
+//            table.setShowVerticalLines(true);
+//            JScrollPane pane = new JScrollPane(table);
+//            JFrame f = new JFrame();
+//            JPanel panel = new JPanel();
+//            panel.add(pane);
+//            f.add(panel);
+//            f.setSize(500, 250);
+//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            f.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CompanyApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
