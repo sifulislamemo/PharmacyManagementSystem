@@ -11,9 +11,12 @@ import com.pharmacy.util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +32,40 @@ public class MedicineReportDao implements ICommonInterface<Medicine>{
 
     @Override
     public int update(Medicine t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+String sql = "update medicine set medicine_code = ?, medicine_name = ?, medicine_manufacturing_date = ?, medicine_expiration_date = ?, medicine_batch_no = ?, medicine_buying_price = ?, medicine_quantity = ?, medicine_discount = ?, medicine_vat = ?, medicine_total_amounnt = ?, medicine_paid_amount = ?, medicine_due_amount = ?, sales_selling_price = ?, branch_location = ?, company_name = ?, medicine_item_name = ? where medicine_code = ?";
+        int status = 0;
+        try {
+            con = DBConnection.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, t.getMedicineCode());
+            ps.setString(2, t.getMedicineName());
+            ps.setString(3, t.getMedicineManufacturingDate());
+            ps.setString(4, t.getMedicineExpirationDate());
+            ps.setString(5, t.getMedicineBatchNo());
+            ps.setString(6, Double.valueOf(t.getMedicineBuyingPrice()).toString());
+            ps.setString(7, Double.valueOf(t.getMedicineQuantity()).toString());
+            ps.setString(8, Double.valueOf(t.getMedicineDiscount()).toString());
+            ps.setString(9, Double.valueOf(t.getMedicineVat()).toString());
+            ps.setString(10, Double.valueOf(t.getMedicineTotalAmounnt()).toString());
+            ps.setString(11, Double.valueOf(t.getMedicinePaidAmount()).toString());
+            ps.setString(12, Double.valueOf(t.getMedicineDueAmount()).toString());
+            ps.setString(13, Double.valueOf(t.getSalesSellingPrice()).toString());
+            ps.setString(14, t.getBranchLocation());
+            ps.setString(15, t.getMedicineItemName());
+            ps.setString(16, t.getCompanyName());
+            
+            status = ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }finally{
+            try {
+                ps.close();
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(BranchDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return status;
     }
 
     @Override
@@ -84,7 +120,7 @@ String sql = "select * from medicine";
             } catch (Exception e) {
             }
         }
-        System.out.println(m);
+//        System.out.println(m);
         return m;
     }
     }

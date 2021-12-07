@@ -498,6 +498,8 @@ public class BranchApp extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Saved!");
         }
+        getAllBranch();
+        clearFile();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void branchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_branchTableMouseClicked
@@ -515,12 +517,20 @@ public class BranchApp extends javax.swing.JFrame {
         int status = new BranchDao().update(branch);
         if (status > 0) {
             JOptionPane.showMessageDialog(rootPane, "Branch Update!");
+            getAllBranch();
         } else {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Update!");
         }
+        
+        clearFile();
 
     }//GEN-LAST:event_btnUpdateActionPerformed
+private void clearFile(){
+branchCode.setText("");
+branchName.setText("");
+branchLocation.setText("");
 
+}
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
          int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
@@ -540,6 +550,7 @@ public class BranchApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
         }
         branchCode.setText("");
+        getAllBranch();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -619,9 +630,9 @@ public class BranchApp extends javax.swing.JFrame {
 
         List<Branch> b = new BranchDao().getAll();
 
-        for (Branch branch : b) {
-            System.out.println(branch.getBranchCode()+" "+branch.getBranchName()+" "+branch.getBranchLocation());
-        }
+//        for (Branch branch : b) {
+//            System.out.println(branch.getBranchCode()+" "+branch.getBranchName()+" "+branch.getBranchLocation());
+//        }
 
         try {
             String columns[] = {"id", "branch_code", "branch_name", "branch_location"};

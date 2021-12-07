@@ -72,8 +72,8 @@ public class MedicineDao implements ICommonInterface<Medicine> {
             ps = con.prepareStatement(sql);
             ps.setString(1, t.getMedicineCode());
             ps.setString(2, t.getMedicineName());
-            ps.setString(3, t.getMedicineManufacturingDate().toString());
-            ps.setString(4, t.getMedicineExpirationDate().toString());
+            ps.setString(3, t.getMedicineManufacturingDate());
+            ps.setString(4, t.getMedicineExpirationDate());
             ps.setString(5, t.getMedicineBatchNo());
             ps.setString(6, Double.valueOf(t.getMedicineBuyingPrice()).toString());
             ps.setString(7, Double.valueOf(t.getMedicineQuantity()).toString());
@@ -153,7 +153,7 @@ public class MedicineDao implements ICommonInterface<Medicine> {
             } catch (Exception e) {
             }
         }
-        System.out.println(m);
+//        System.out.println(m);
         return m;
     }
 

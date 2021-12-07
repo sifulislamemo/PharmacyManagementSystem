@@ -7,10 +7,14 @@ package com.pharmacy.gui;
 
 import com.pharmacy.dao.MedicineReportDao;
 import com.pharmacy.model.Medicine;
+import com.pharmacy.model.MedicineReport;
 import com.pharmacy.util.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -27,6 +31,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
      */
     public MedicineReportApp() {
         initComponents();
+        getAllMedicineReport();
     }
 
     /**
@@ -411,6 +416,32 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        List<Medicine> m = new MedicineReportDao().getAll();
+        Medicine medicine = new Medicine();
+       medicine.setMedicineCode(medicine.getMedicineCode());
+        System.out.println(medicine.getMedicineCode());
+//        medicine.setMedicineName(medicineName.getText());
+//        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDateFormatString());
+//        medicine.setMedicineExpirationDate(medicineExpirationDate.getDateFormatString());
+//        medicine.setMedicineBatchNo(medicineBatchNo.getText());
+//        medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
+//        medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
+//        medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
+//        medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
+//        medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
+//        medicine.setMedicinePaidAmount(Double.valueOf(medicinePaidAmount.getText()));
+//        medicine.setMedicineDueAmount(Double.valueOf(medicineDueAmount.getText()));
+//        medicine.setSalesSellingPrice(Double.valueOf(salesSellingPrice.getText()));
+//        medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
+//        medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
+//        medicine.setCompanyName(companyName.getSelectedItem().toString());
+//        medicine.setMedicineBatchNo(medicineBatchNo.getText());
+        int status = new MedicineReportDao().update(medicine);
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
+        }
       
 
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -418,10 +449,11 @@ private void getAllMedicineReport() {
         // TODO add your handling code here:
 
         List<Medicine> m = new MedicineReportDao().getAll();
+        Medicine medicine = new Medicine();
 
-        for (Medicine branch : m) {
-//            System.out.println(branch.getBranchCode()+" "+branch.getBranchName()+" "+branch.getBranchLocation());
-        }
+//        for (Medicine medicine : m) {
+//            System.out.println(medicine.getMedicineBatchNo());
+//        }
 
         try {
             String columns[] = {"id", "medicine_code", "medicine_name", "medicine_manufacturing_date","medicine_expiration_date","medicine_batch_no","medicine_buying_price","medicine_quantity","medicine_discount","medicine_vat","medicine_total_amounnt","medicine_paid_amount","medicine_due_amount","sales_selling_price","branch_location","company_name","medicine_item_name"};
@@ -473,21 +505,10 @@ private void getAllMedicineReport() {
             medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
-//                    medicineCode.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
+                  
+//                   medicineCode.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
 //                    branchName.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                  
                     
 //                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
                   
@@ -495,17 +516,7 @@ private void getAllMedicineReport() {
                     
                 }
             });
-//            JTable table = new JTable(data, columns);
-//            table.setShowGrid(true);
-//            table.setShowVerticalLines(true);
-//            JScrollPane pane = new JScrollPane(table);
-//            JFrame f = new JFrame();
-//            JPanel panel = new JPanel();
-//            panel.add(pane);
-//            f.add(panel);
-//            f.setSize(500, 250);
-//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            f.setVisible(true);
+          
 
         } catch (SQLException ex) {
             Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);
