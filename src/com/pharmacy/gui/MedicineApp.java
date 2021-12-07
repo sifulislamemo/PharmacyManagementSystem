@@ -79,15 +79,15 @@ public class MedicineApp extends javax.swing.JFrame {
         medicineManufacturingDate = new com.toedter.calendar.JDateChooser();
         medicineExpirationDate = new com.toedter.calendar.JDateChooser();
         jLabel18 = new javax.swing.JLabel();
-        branchLocation = new javax.swing.JComboBox<>();
+        branchLocation = new javax.swing.JComboBox<String>();
         jLabel19 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         medicineName = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         medicineCode = new javax.swing.JTextField();
-        medicineItemName = new javax.swing.JComboBox<>();
-        companyName = new javax.swing.JComboBox<>();
+        medicineItemName = new javax.swing.JComboBox<String>();
+        companyName = new javax.swing.JComboBox<String>();
         jLabel16 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -109,8 +109,8 @@ public class MedicineApp extends javax.swing.JFrame {
         salesSellingPrice = new javax.swing.JTextField();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
         btnAdd1 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -372,7 +372,7 @@ public class MedicineApp extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGap(0, 408, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
                     .addGap(30, 30, 30)
@@ -530,16 +530,6 @@ public class MedicineApp extends javax.swing.JFrame {
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
 
-        btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
-        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
         btnAdd1.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
@@ -547,6 +537,16 @@ public class MedicineApp extends javax.swing.JFrame {
         btnAdd1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdd1ActionPerformed(evt);
+            }
+        });
+
+        btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
+        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("UPDATE");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -564,9 +564,9 @@ public class MedicineApp extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(63, 63, 63)
                 .addComponent(btnUpdate)
-                .addGap(56, 56, 56)
+                .addGap(50, 50, 50)
                 .addComponent(btnDelete)
                 .addGap(49, 49, 49)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -582,10 +582,10 @@ public class MedicineApp extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -681,12 +681,6 @@ public class MedicineApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_medicineMenuActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-      
-
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
        Medicine  medicine = new Medicine();
@@ -715,6 +709,34 @@ public class MedicineApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Medicine NOT Saved!");
         }
     }//GEN-LAST:event_btnAdd1ActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        Medicine medicine = new Medicine();
+       medicine.setMedicineCode(medicineCode.getText());
+        medicine.setMedicineName(medicineName.getText());
+        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDateFormatString());
+        medicine.setMedicineExpirationDate(medicineExpirationDate.getDateFormatString());
+        medicine.setMedicineBatchNo(medicineBatchNo.getText());
+        medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
+        medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
+        medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
+        medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
+        medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
+        medicine.setMedicinePaidAmount(Double.valueOf(medicinePaidAmount.getText()));
+        medicine.setMedicineDueAmount(Double.valueOf(medicineDueAmount.getText()));
+        medicine.setSalesSellingPrice(Double.valueOf(salesSellingPrice.getText()));
+        medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
+        medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
+        medicine.setCompanyName(companyName.getSelectedItem().toString());
+        medicine.setMedicineBatchNo(medicineBatchNo.getText());
+        int status = new MedicineDao().update(medicine);
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments

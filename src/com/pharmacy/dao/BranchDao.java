@@ -112,6 +112,5 @@ public class BranchDao implements ICommonInterface<Branch>{
         return branches;
         }
     
-  
 
 }

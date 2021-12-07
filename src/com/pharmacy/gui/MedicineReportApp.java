@@ -5,7 +5,16 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.MedicineReportDao;
+import com.pharmacy.model.Medicine;
+import com.pharmacy.util.DBConnection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,7 +58,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        medicineReportTable = new javax.swing.JTable();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -249,7 +258,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        medicineReportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -260,7 +269,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(medicineReportTable);
 
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -405,7 +414,104 @@ public class MedicineReportApp extends javax.swing.JFrame {
       
 
     }//GEN-LAST:event_btnUpdateActionPerformed
+private void getAllMedicineReport() {
+        // TODO add your handling code here:
 
+        List<Medicine> m = new MedicineReportDao().getAll();
+
+        for (Medicine branch : m) {
+//            System.out.println(branch.getBranchCode()+" "+branch.getBranchName()+" "+branch.getBranchLocation());
+        }
+
+        try {
+            String columns[] = {"id", "medicine_code", "medicine_name", "medicine_manufacturing_date","medicine_expiration_date","medicine_batch_no","medicine_buying_price","medicine_quantity","medicine_discount","medicine_vat","medicine_total_amounnt","medicine_paid_amount","medicine_due_amount","sales_selling_price","branch_location","company_name","medicine_item_name"};
+            String data[][] = new String[m.size()][30];
+            String sql = "select * from medicine";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            int i = 0;
+            while (res.next()) {
+                int id = res.getInt("id");
+                String mCode = res.getString("medicine_code");
+                String mName = res.getString("medicine_name");
+                String mManufacturing = res.getString("medicine_manufacturing_date");
+                String mExpiration = res.getString("medicine_expiration_date");
+                String mBatch = res.getString("medicine_batch_no");
+                String mBuyingPrice = res.getString("medicine_buying_price");
+                String mQuantity = res.getString("medicine_quantity");
+                String mDiscount = res.getString("medicine_discount");
+                String mVat = res.getString("medicine_vat");
+                String mTotalAmounnt = res.getString("medicine_total_amounnt");
+                String mPaidAmount = res.getString("medicine_paid_amount");
+                String mDueAmount = res.getString("medicine_due_amount");
+                String mSellingPrice = res.getString("sales_selling_price");
+                String mBranchLocation = res.getString("branch_location");
+                String mCompanyName = res.getString("company_name");
+                String mItemName = res.getString("medicine_item_name");
+                data[i][0] = id + "";
+                data[i][1] = mCode;
+                data[i][2] = mName;
+                data[i][3] = mManufacturing;
+                data[i][4] = mExpiration;
+                data[i][5] = mBatch;
+                data[i][6] = mBuyingPrice;
+                data[i][7] = mQuantity;
+                data[i][8] = mDiscount;
+                data[i][9] = mVat;
+                data[i][10] = mTotalAmounnt;
+                data[i][11] = mPaidAmount;
+                data[i][12] = mDueAmount;
+                data[i][13] = mSellingPrice;
+                data[i][14] = mBranchLocation;
+                data[i][16] = mCompanyName;
+                data[i][17] = mItemName;
+                i++;
+            }
+
+            DefaultTableModel model = new DefaultTableModel(data, columns);
+            medicineReportTable.setModel(model);
+            medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+//                    medicineCode.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
+//                    branchName.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+//                    branchLocation.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+                    
+//                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
+                  
+                    
+                    
+                }
+            });
+//            JTable table = new JTable(data, columns);
+//            table.setShowGrid(true);
+//            table.setShowVerticalLines(true);
+//            JScrollPane pane = new JScrollPane(table);
+//            JFrame f = new JFrame();
+//            JPanel panel = new JPanel();
+//            panel.add(pane);
+//            f.add(panel);
+//            f.setSize(500, 250);
+//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            f.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
@@ -460,11 +566,11 @@ public class MedicineReportApp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutMenu;
     private javax.swing.JButton medicineItemMenu;
     private javax.swing.JButton medicineMenu;
     private javax.swing.JButton medicineReportMenu;
+    private javax.swing.JTable medicineReportTable;
     private javax.swing.JButton salesMenu;
     private javax.swing.JButton salesReportMenu;
     private javax.swing.JButton stockReportMenu;
