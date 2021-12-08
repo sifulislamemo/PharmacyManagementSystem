@@ -681,7 +681,12 @@ public class MedicineApp extends javax.swing.JFrame {
         new MedicineApp().setVisible(true);
 
     }//GEN-LAST:event_medicineMenuActionPerformed
+public void addValue(Medicine s){
+medicineCode.setText(s.getMedicineCode());
+medicineName.setText(s.getMedicineName());
 
+
+}
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
        Medicine  medicine = new Medicine();

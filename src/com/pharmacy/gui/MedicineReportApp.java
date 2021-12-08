@@ -7,7 +7,7 @@ package com.pharmacy.gui;
 
 import com.pharmacy.dao.MedicineReportDao;
 import com.pharmacy.model.Medicine;
-import com.pharmacy.model.MedicineReport;
+
 import com.pharmacy.util.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -416,10 +416,27 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        List<Medicine> m = new MedicineReportDao().getAll();
-        Medicine medicine = new Medicine();
-       medicine.setMedicineCode(medicine.getMedicineCode());
-        System.out.println(medicine.getMedicineCode());
+//        List<Medicine> m = new MedicineReportDao().getAll();
+//        Medicine medicine = new Medicine();
+//       medicine.setMedicineCode(medicine.getMedicineCode());
+//        System.out.println(medicine.getMedicineCode());
+//        medicine.setMedicineName(medicine.getMedicineName());
+        
+        medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Medicine s = new Medicine();
+                s.setMedicineCode(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
+                s.setMedicineName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
+//                s.setStorePhone(storeTable.getValueAt(storeTable.getSelectedRow(), 2).toString());
+                MedicineApp m = new MedicineApp();
+                m.setVisible(true);
+               m.addValue(s);
+                
+ 
+            }
+        });
+        
 //        medicine.setMedicineName(medicineName.getText());
 //        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDateFormatString());
 //        medicine.setMedicineExpirationDate(medicineExpirationDate.getDateFormatString());
@@ -436,12 +453,12 @@ public class MedicineReportApp extends javax.swing.JFrame {
 //        medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
 //        medicine.setCompanyName(companyName.getSelectedItem().toString());
 //        medicine.setMedicineBatchNo(medicineBatchNo.getText());
-        int status = new MedicineReportDao().update(medicine);
-        if (status > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
-        }
+//        int status = new MedicineReportDao().update(s);
+//        if (status > 0) {
+//            JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
+//        } else {
+//            JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
+//        }
       
 
     }//GEN-LAST:event_btnUpdateActionPerformed
@@ -502,9 +519,9 @@ private void getAllMedicineReport() {
 
             DefaultTableModel model = new DefaultTableModel(data, columns);
             medicineReportTable.setModel(model);
-            medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
+//            medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//                @Override
+//                public void valueChanged(ListSelectionEvent e) {
                   
 //                   medicineCode.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
 //                    branchName.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
@@ -514,10 +531,10 @@ private void getAllMedicineReport() {
                   
                     
                     
-                }
-            });
-          
-
+//                }
+//            });
+//          
+//
         } catch (SQLException ex) {
             Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);
         }

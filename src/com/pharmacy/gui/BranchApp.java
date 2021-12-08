@@ -499,7 +499,7 @@ public class BranchApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Saved!");
         }
         getAllBranch();
-        clearFile();
+        clearFields();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void branchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_branchTableMouseClicked
@@ -517,15 +517,15 @@ public class BranchApp extends javax.swing.JFrame {
         int status = new BranchDao().update(branch);
         if (status > 0) {
             JOptionPane.showMessageDialog(rootPane, "Branch Update!");
-            getAllBranch();
+            
         } else {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Update!");
         }
-        
-        clearFile();
+        getAllBranch();
+        clearFields();
 
     }//GEN-LAST:event_btnUpdateActionPerformed
-private void clearFile(){
+private void clearFields(){
 branchCode.setText("");
 branchName.setText("");
 branchLocation.setText("");
@@ -549,7 +549,7 @@ branchLocation.setText("");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
         }
-        branchCode.setText("");
+        clearFields();
         getAllBranch();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -635,21 +635,21 @@ branchLocation.setText("");
 //        }
 
         try {
-            String columns[] = {"id", "branch_code", "branch_name", "branch_location"};
+            String columns[] = {"branch_code", "branch_name", "branch_location"};
             String data[][] = new String[b.size()][10];
             String sql = "select * from branch";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet res = ps.executeQuery();
             int i = 0;
             while (res.next()) {
-                int id = res.getInt("id");
+                
                 String bCode = res.getString("branch_code");
                 String bName = res.getString("branch_name");
                 String blocation = res.getString("branch_location");
-                data[i][0] = id + "";
-                data[i][1] = bCode;
-                data[i][2] = bName;
-                data[i][3] = blocation;
+               
+                data[i][0] = bCode;
+                data[i][1] = bName;
+                data[i][2] = blocation;
                 i++;
             }
 
@@ -658,9 +658,9 @@ branchLocation.setText("");
             branchTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
-                    branchCode.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
-                    branchName.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 2).toString());
-                    branchLocation.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 3).toString());
+                    branchCode.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 0).toString());
+                    branchName.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
+                    branchLocation.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 2).toString());
                     
 //                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
                   

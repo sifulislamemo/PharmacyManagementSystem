@@ -461,10 +461,10 @@
                           </Group>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="salesCode" alignment="0" max="32767" attributes="0"/>
                               <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
+                              <Component id="salesContact" alignment="0" max="32767" attributes="0"/>
+                              <Component id="salesName" alignment="0" max="32767" attributes="0"/>
                               <Component id="jTextField4" alignment="0" max="32767" attributes="0"/>
                               <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
                               <Component id="jComboBox3" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
@@ -479,17 +479,17 @@
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel11" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="salesCode" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel21" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jTextField3" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="salesName" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel19" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jTextField2" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="salesContact" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel20" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
@@ -531,7 +531,7 @@
                     <Property name="text" type="java.lang.String" value="Payment Type"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="salesCode">
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBox3">
                   <Properties>
@@ -551,7 +551,7 @@
                     <Property name="text" type="java.lang.String" value="Name"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField3">
+                <Component class="javax.swing.JTextField" name="salesName">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel19">
                   <Properties>
@@ -561,7 +561,7 @@
                     <Property name="text" type="java.lang.String" value="Contact"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField2">
+                <Component class="javax.swing.JTextField" name="salesContact">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel20">
                   <Properties>
@@ -710,7 +710,7 @@
                               <Component id="jLabel27" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="jTextField19" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -721,7 +721,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Buying Price"/>
+                    <Property name="text" type="java.lang.String" value="Selling Price"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField14">
