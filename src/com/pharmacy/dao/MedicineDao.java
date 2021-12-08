@@ -86,8 +86,9 @@ public class MedicineDao implements ICommonInterface<Medicine> {
             ps.setString(14, t.getBranchLocation());
             ps.setString(15, t.getMedicineItemName());
             ps.setString(16, t.getCompanyName());
+            ps.setString(17, t.getMedicineCode());
             
-            status = ps.executeUpdate();
+            //status = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }finally{

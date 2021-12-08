@@ -5,8 +5,15 @@
  */
 package com.pharmacy.gui;
 
-import com.pharmacy.dao.MedicineReportDao;
+import com.pharmacy.dao.BranchDao;
+import com.pharmacy.dao.CompanyDao;
+import com.pharmacy.dao.MedicineDao;
+import com.pharmacy.dao.MedicineItemDao;
+import com.pharmacy.model.Branch;
+import com.pharmacy.model.Company;
+
 import com.pharmacy.model.Medicine;
+import com.pharmacy.model.MedicineItem;
 
 import com.pharmacy.util.DBConnection;
 import java.sql.PreparedStatement;
@@ -285,6 +292,11 @@ public class MedicineReportApp extends javax.swing.JFrame {
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -416,6 +428,9 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        
+       
+        
 //        List<Medicine> m = new MedicineReportDao().getAll();
 //        Medicine medicine = new Medicine();
 //       medicine.setMedicineCode(medicine.getMedicineCode());
@@ -428,44 +443,64 @@ public class MedicineReportApp extends javax.swing.JFrame {
                 Medicine s = new Medicine();
                 s.setMedicineCode(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
                 s.setMedicineName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
-//                s.setStorePhone(storeTable.getValueAt(storeTable.getSelectedRow(), 2).toString());
+                s.setMedicineManufacturingDate(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
+                s.setMedicineExpirationDate(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 4).toString());
+                s.setMedicineBatchNo(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 5).toString());
+                s.setMedicineBuyingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 6).toString()));
+                s.setMedicineQuantity(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 7).toString()));
+                s.setMedicineDiscount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 8).toString()));
+                s.setMedicineVat(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 9).toString()));
+                s.setMedicineTotalAmounnt(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 10).toString()));
+                s.setMedicinePaidAmount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 11).toString()));
+                s.setMedicineDueAmount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 12).toString()));
+                s.setSalesSellingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 13).toString()));
+
+                s.setBranchLocation(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 14).toString());
+              //  s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 15).toString());
+              //  s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 16).toString());
+
+    
+
                 MedicineApp m = new MedicineApp();
                 m.setVisible(true);
                m.addValue(s);
-                
+               
  
             }
         });
         
-//        medicine.setMedicineName(medicineName.getText());
-//        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDateFormatString());
-//        medicine.setMedicineExpirationDate(medicineExpirationDate.getDateFormatString());
-//        medicine.setMedicineBatchNo(medicineBatchNo.getText());
-//        medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
-//        medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
-//        medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
-//        medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
-//        medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
-//        medicine.setMedicinePaidAmount(Double.valueOf(medicinePaidAmount.getText()));
-//        medicine.setMedicineDueAmount(Double.valueOf(medicineDueAmount.getText()));
-//        medicine.setSalesSellingPrice(Double.valueOf(salesSellingPrice.getText()));
-//        medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
-//        medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
-//        medicine.setCompanyName(companyName.getSelectedItem().toString());
-//        medicine.setMedicineBatchNo(medicineBatchNo.getText());
-//        int status = new MedicineReportDao().update(s);
-//        if (status > 0) {
-//            JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
-//        } else {
-//            JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
-//        }
+
       
 
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        List<Medicine> m = new MedicineDao().getAll();
+        Medicine mm;
+         int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+        if(option == 0){
+            String sql = "delete from medicine where medicine_code = ?";
+            try {
+//                mm = new Medicine();
+                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+                ps.setString(1, medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
+                int status = ps.executeUpdate();
+                if(status >0){
+                    JOptionPane.showMessageDialog(rootPane, "Medicine deleted!");
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
+        }
+        getAllMedicineReport();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 private void getAllMedicineReport() {
         // TODO add your handling code here:
 
-        List<Medicine> m = new MedicineReportDao().getAll();
+        List<Medicine> m = new MedicineDao().getAll();
         Medicine medicine = new Medicine();
 
 //        for (Medicine medicine : m) {

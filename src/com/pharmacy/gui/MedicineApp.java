@@ -529,6 +529,11 @@ public class MedicineApp extends javax.swing.JFrame {
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnAdd1.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -682,9 +687,31 @@ public class MedicineApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_medicineMenuActionPerformed
 public void addValue(Medicine s){
-medicineCode.setText(s.getMedicineCode());
-medicineName.setText(s.getMedicineName());
-
+    medicineCode.setText(s.getMedicineCode());
+    medicineName.setText(s.getMedicineName());
+    medicineManufacturingDate.setDateFormatString(s.getMedicineManufacturingDate());
+    medicineManufacturingDate.setDateFormatString(s.getMedicineExpirationDate());
+    medicineBatchNo.setText(s.getMedicineBatchNo());
+    medicineBuyingPrice.setText(Double.valueOf(s.getMedicineBuyingPrice()).toString());
+    medicineQuantity.setText(Double.valueOf(s.getMedicineQuantity()).toString());
+    medicineDiscount.setText(Double.valueOf(s.getMedicineDiscount()).toString());
+    medicineVat.setText(Double.valueOf(s.getMedicineVat()).toString());
+    medicineTotalAmounnt.setText(Double.valueOf(s.getMedicineTotalAmounnt()).toString());
+    medicinePaidAmount.setText(Double.valueOf(s.getMedicinePaidAmount()).toString());
+    medicineDueAmount.setText(Double.valueOf(s.getMedicineDueAmount()).toString());
+    salesSellingPrice.setText(Double.valueOf(s.getSalesSellingPrice()).toString());
+    String ss = s.getBranchLocation();
+    branch = new BranchDao().getAll();
+    System.out.println(ss);
+        for (int i = 0; i < branch.size(); i++) {
+            branchLocation.addItem(branch.get(i).getBranchLocation());
+            if(branch.get(i).getBranchLocation().equals(ss)){
+                     branchLocation.setSelectedItem(ss);
+            }
+        }
+   
+        
+      
 
 }
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
@@ -735,7 +762,7 @@ medicineName.setText(s.getMedicineName());
         medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
         medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
         medicine.setCompanyName(companyName.getSelectedItem().toString());
-        medicine.setMedicineBatchNo(medicineBatchNo.getText());
+        
         int status = new MedicineDao().update(medicine);
         if (status > 0) {
             JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
@@ -743,6 +770,10 @@ medicineName.setText(s.getMedicineName());
             JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
