@@ -700,15 +700,33 @@ public void addValue(Medicine s){
     medicinePaidAmount.setText(Double.valueOf(s.getMedicinePaidAmount()).toString());
     medicineDueAmount.setText(Double.valueOf(s.getMedicineDueAmount()).toString());
     salesSellingPrice.setText(Double.valueOf(s.getSalesSellingPrice()).toString());
-    String ss = s.getBranchLocation();
+    String b = s.getBranchLocation();
     branch = new BranchDao().getAll();
-    System.out.println(ss);
+    System.out.println(b);
         for (int i = 0; i < branch.size(); i++) {
             branchLocation.addItem(branch.get(i).getBranchLocation());
-            if(branch.get(i).getBranchLocation().equals(ss)){
-                     branchLocation.setSelectedItem(ss);
+            if(branch.get(i).getBranchLocation().equals(b)){
+                     branchLocation.setSelectedItem(b);
             }
         }
+    String c = s.getCompanyName();
+    company = new CompanyDao().getAll();
+    for (int i = 0; i < company.size(); i++) {
+        companyName.addItem(company.get(i).getCompanyName());
+        if (company.get(i).getCompanyName().equals(c)) {
+            companyName.setSelectedItem(c);
+        }
+    }
+    String mi = s.getMedicineItemName();
+    medicineItem= new MedicineItemDao().getAll();;
+    for (int i = 0; i < medicineItem.size(); i++) {
+            medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
+            if (medicineItem.get(i).getMedicineItemName().equals(mi)) {
+            medicineItemName.setSelectedItem(mi);
+        }
+        }
+    
+      
    
         
       
@@ -760,8 +778,9 @@ public void addValue(Medicine s){
         medicine.setMedicineDueAmount(Double.valueOf(medicineDueAmount.getText()));
         medicine.setSalesSellingPrice(Double.valueOf(salesSellingPrice.getText()));
         medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
-        medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
         medicine.setCompanyName(companyName.getSelectedItem().toString());
+        medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
+        
         
         int status = new MedicineDao().update(medicine);
         if (status > 0) {

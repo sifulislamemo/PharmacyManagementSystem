@@ -423,22 +423,27 @@ public class SalesReportApp extends javax.swing.JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 Sales s = new Sales();
                 s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                
+                s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
+                s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
+                s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
+//                s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
+//                s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString());
+                
+                s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
+//                s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
+                s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
+                s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
+                s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
+                s.setSellingVat(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 12).toString()));
+                s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 13).toString()));
+                s.setSellingPaidAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 14).toString()));
+                s.setSellingDueAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 15).toString()));
 
-                s.setBranchLocation(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 14).toString());
-                //  s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 15).toString());
-                //  s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 16).toString());
 
-                MedicineApp m = new MedicineApp();
+                SalesApp m = new SalesApp();
                 m.setVisible(true);
-                m.addValue(s);
+               m.addValue(s);
 
             }
         });

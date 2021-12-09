@@ -653,7 +653,27 @@ public class SalesApp extends javax.swing.JFrame {
         new LoginApp().setVisible(true);
         }
     }//GEN-LAST:event_logoutMenuActionPerformed
+public void addValue(Sales s){
+salesCode.setText(s.getSalesCode());
+salesName.setText(s.getSalesName());
+salesContact.setText(s.getSalesContact());
+salesAddress.setText(s.getSalesAddress());
+//salesGender.s
+//salesDate.setDate(date);
+medicineName.setText(s.getMedicineName());
+//paymentType.setText(s.getMedicineName());
+sellingPrice.setText(Double.valueOf(s.getSellingPrice()).toString());
+sellingQuantity.setText(Double.valueOf(s.getSellingQuantity()).toString());
+sellingDiscountPercentage.setText(Double.valueOf(s.getSellingDiscountPercentage()).toString());
+sellingVat.setText(Double.valueOf(s.getSellingVat()).toString());
+sellingTotalAmount.setText(Double.valueOf(s.getSellingTotalAmount()).toString());
+sellingPaidAmount.setText(Double.valueOf(s.getSellingPaidAmount()).toString());
+sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
 
+
+
+
+}
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         Sales  sales = new Sales();

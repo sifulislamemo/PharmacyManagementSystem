@@ -454,10 +454,10 @@ public class MedicineReportApp extends javax.swing.JFrame {
                 s.setMedicinePaidAmount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 11).toString()));
                 s.setMedicineDueAmount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 12).toString()));
                 s.setSalesSellingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 13).toString()));
-
                 s.setBranchLocation(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 14).toString());
-              //  s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 15).toString());
-              //  s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 16).toString());
+                s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 15).toString());
+                s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 16).toString());
+              
 
     
 
@@ -547,8 +547,8 @@ private void getAllMedicineReport() {
                 data[i][12] = mDueAmount;
                 data[i][13] = mSellingPrice;
                 data[i][14] = mBranchLocation;
-                data[i][16] = mCompanyName;
-                data[i][17] = mItemName;
+                data[i][15] = mCompanyName;
+                data[i][16] = mItemName;
                 i++;
             }
 
