@@ -5,7 +5,15 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.SalesDao;
+import com.pharmacy.model.Sales;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +26,7 @@ public class SalesReportApp extends javax.swing.JFrame {
      */
     public SalesReportApp() {
         initComponents();
+        getAllSalesReport();
     }
 
     /**
@@ -49,7 +58,7 @@ public class SalesReportApp extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        salesReportTable = new javax.swing.JTable();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -249,7 +258,7 @@ public class SalesReportApp extends javax.swing.JFrame {
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        salesReportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -260,7 +269,7 @@ public class SalesReportApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(salesReportTable);
 
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -289,9 +298,9 @@ public class SalesReportApp extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
+                .addGap(313, 313, 313)
                 .addComponent(btnUpdate)
-                .addGap(56, 56, 56)
+                .addGap(40, 40, 40)
                 .addComponent(btnDelete)
                 .addGap(49, 49, 49)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,9 +314,9 @@ public class SalesReportApp extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -403,8 +412,70 @@ public class SalesReportApp extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        //        List<Medicine> m = new MedicineReportDao().getAll();
+        //        Medicine medicine = new Medicine();
+        //       medicine.setMedicineCode(medicine.getMedicineCode());
+        //        System.out.println(medicine.getMedicineCode());
+        //        medicine.setMedicineName(medicine.getMedicineName());
 
+        salesReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                Sales s = new Sales();
+                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+
+                s.setBranchLocation(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 14).toString());
+                //  s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 15).toString());
+                //  s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 16).toString());
+
+                MedicineApp m = new MedicineApp();
+                m.setVisible(true);
+                m.addValue(s);
+
+            }
+        });
+
+    }//GEN-LAST:event_btnUpdateActionPerformed
+private void getAllSalesReport() {
+//        // TODO add your handling code here:
+//
+        List<Sales> m = new SalesDao().getAll();
+        Sales sales = new Sales();
+//
+////        for (Medicine medicine : m) {
+////            System.out.println(medicine.getMedicineBatchNo());
+////        }
+////        List<Store> stores = new StoreDAO().getAll();
+////        Store store = new Store();
+//
+         String[] columnNames = {"sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date","medicine_name","sales_payment_type","sales_price","sales_quantity","sales_discount_percentage","sales_vat","sales_total_amount","sales_paid_amount","sales__due_amount"};
+        Object[][] data = new Object[m.size()][15];
+          for (int i = 0; i < m.size(); i++) {
+           Sales s = m.get(i);
+            Object[] o = {s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getMedicineName(), s.getPaymentType(), s.getSellingPrice(), s.getSellingQuantity(), s.getSellingDiscountPercentage(), s.getSellingVat(), s.getSellingTotalAmount(), s.getSellingPaidAmount(), s.getSellingDueAmount(),};
+            for (int j = 0; j < 15; j++) {
+                data[i][j] = o[j];
+            }
+        }
+        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+        salesReportTable.setModel(model);
+//
+//            
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
+}
     /**
      * @param args the command line arguments
      */
@@ -459,13 +530,13 @@ public class SalesReportApp extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutMenu;
     private javax.swing.JButton medicineItemMenu;
     private javax.swing.JButton medicineMenu;
     private javax.swing.JButton medicineReportMenu;
     private javax.swing.JButton salesMenu;
     private javax.swing.JButton salesReportMenu;
+    private javax.swing.JTable salesReportTable;
     private javax.swing.JButton stockReportMenu;
     private javax.swing.JButton telemedicineMenu;
     // End of variables declaration//GEN-END:variables

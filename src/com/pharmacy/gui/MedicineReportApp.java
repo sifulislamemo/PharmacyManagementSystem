@@ -554,22 +554,7 @@ private void getAllMedicineReport() {
 
             DefaultTableModel model = new DefaultTableModel(data, columns);
             medicineReportTable.setModel(model);
-//            medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//                @Override
-//                public void valueChanged(ListSelectionEvent e) {
-                  
-//                   medicineCode.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
-//                    branchName.setText(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
-//                  
-                    
-//                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
-                  
-                    
-                    
-//                }
-//            });
-//          
-//
+
         } catch (SQLException ex) {
             Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);
         }

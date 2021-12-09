@@ -370,7 +370,7 @@
                               <Component id="btnClear" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="221" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -458,18 +458,20 @@
                               <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel18" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="salesCode" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBox2" alignment="0" max="32767" attributes="0"/>
                               <Component id="salesContact" alignment="0" max="32767" attributes="0"/>
                               <Component id="salesName" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jTextField4" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jComboBox3" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                              <Component id="salesAddress" alignment="0" max="32767" attributes="0"/>
+                              <Component id="salesDate" alignment="0" max="32767" attributes="0"/>
+                              <Component id="paymentType" alignment="0" pref="192" max="32767" attributes="0"/>
+                              <Component id="medicineName" max="32767" attributes="0"/>
+                              <Component id="salesGender" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="96" max="32767" attributes="0"/>
+                          <EmptySpace pref="104" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -491,52 +493,58 @@
                               <Component id="jLabel19" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                               <Component id="salesContact" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel20" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="salesGender" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel20" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jDateChooser1" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="salesDate" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="medicineName" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jTextField4" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
-                              <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="jComboBox3" min="-2" pref="33" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="paymentType" min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="jLabel29" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="salesAddress" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField4">
+                <Component class="javax.swing.JTextField" name="salesAddress">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel17">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="18" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Payment Type"/>
+                    <Property name="text" type="java.lang.String" value="Address"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="salesCode">
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox3">
+                <Component class="javax.swing.JComboBox" name="paymentType">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
+                      <StringArray count="4">
+                        <StringItem index="0" value="Cash"/>
+                        <StringItem index="1" value="bKash"/>
+                        <StringItem index="2" value="Nagod"/>
+                        <StringItem index="3" value=" "/>
+                      </StringArray>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -571,16 +579,6 @@
                     <Property name="text" type="java.lang.String" value="Gender"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox2">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="0"/>
-                    </Property>
-                  </Properties>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -589,7 +587,7 @@
                     <Property name="text" type="java.lang.String" value="Date"/>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                <Component class="com.toedter.calendar.JDateChooser" name="salesDate">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel18">
                   <Properties>
@@ -605,6 +603,27 @@
                       <Font name="Tahoma" size="18" style="0"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Code"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel29">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="18" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Payment Type"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="medicineName">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="salesGender">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="Male"/>
+                        <StringItem index="1" value="Female"/>
+                        <StringItem index="2" value="Other"/>
+                      </StringArray>
+                    </Property>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -629,16 +648,13 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField14" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="jTextField11" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingPrice" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingQuantity" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jLabel23" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jLabel24" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel23" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel25" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
                                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="jLabel27" alignment="0" max="32767" attributes="0"/>
@@ -648,12 +664,11 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField20" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="jTextField18" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="jTextField16" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="jTextField17" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="jTextField19" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
-                                      <Component id="jTextField15" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingVat" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingTotalAmount" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingPaidAmount" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingDueAmount" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="sellingDiscountPercentage" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -669,46 +684,42 @@
                               <Component id="jLabel22" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace pref="3" max="-2" attributes="0"/>
-                                  <Component id="jTextField14" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="sellingPrice" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField11" min="-2" pref="29" max="-2" attributes="0"/>
+                                  <Component id="sellingQuantity" min="-2" pref="29" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField15" min="-2" pref="29" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jTextField16" min="-2" pref="29" max="-2" attributes="0"/>
+                                  <Component id="sellingDiscountPercentage" min="-2" pref="29" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                   <Component id="jLabel15" min="-2" pref="26" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel23" min="-2" pref="26" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                  <Component id="jLabel24" min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextField20" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="sellingVat" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="jLabel28" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel25" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jTextField18" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="sellingTotalAmount" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel26" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jTextField17" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="sellingPaidAmount" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel27" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="jTextField19" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="sellingDueAmount" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -724,7 +735,7 @@
                     <Property name="text" type="java.lang.String" value="Selling Price"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField14">
+                <Component class="javax.swing.JTextField" name="sellingPrice">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
@@ -734,7 +745,7 @@
                     <Property name="text" type="java.lang.String" value="Quantity"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField11">
+                <Component class="javax.swing.JTextField" name="sellingQuantity">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
                   <Properties>
@@ -744,17 +755,7 @@
                     <Property name="text" type="java.lang.String" value="Discount Percentage"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField15">
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel24">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="18" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Discount Amount"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="jTextField16">
+                <Component class="javax.swing.JTextField" name="sellingDiscountPercentage">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel25">
                   <Properties>
@@ -764,7 +765,7 @@
                     <Property name="text" type="java.lang.String" value="Total Amount"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField18">
+                <Component class="javax.swing.JTextField" name="sellingTotalAmount">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel26">
                   <Properties>
@@ -774,7 +775,7 @@
                     <Property name="text" type="java.lang.String" value="Paid Amount"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField17">
+                <Component class="javax.swing.JTextField" name="sellingPaidAmount">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel27">
                   <Properties>
@@ -784,7 +785,7 @@
                     <Property name="text" type="java.lang.String" value="Due Amount"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField19">
+                <Component class="javax.swing.JTextField" name="sellingDueAmount">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
                   <Properties>
@@ -794,7 +795,7 @@
                     <Property name="text" type="java.lang.String" value="Vat"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextField20">
+                <Component class="javax.swing.JTextField" name="sellingVat">
                 </Component>
               </SubComponents>
             </Container>
