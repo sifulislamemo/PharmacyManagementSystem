@@ -87,10 +87,9 @@ public class MedicineDao implements ICommonInterface<Medicine> {
             ps.setString(14, t.getBranchLocation());
             ps.setString(15, t.getCompanyName());
             ps.setString(16, t.getMedicineItemName());
-          
             ps.setString(17, t.getMedicineCode());
             
-            //status = ps.executeUpdate();
+            status = ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }finally{
@@ -159,7 +158,41 @@ public class MedicineDao implements ICommonInterface<Medicine> {
 //        System.out.println(m);
         return m;
     }
+    
+    public Medicine getByName (String name){
+
+        String sql = "select * from medicine where medicine_name = ?";
+        Medicine medicine = new Medicine();
+        try {
+            con = DBConnection.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(2, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {                
+                medicine.setMedicineCode(rs.getString("medicine_code")); 
+                medicine.setMedicineName(rs.getString("medicine_name")); 
+                medicine.setMedicineBuyingPrice(rs.getDouble("medicine_buying_price")); 
+                medicine.setMedicineQuantity(Double.valueOf(rs.getString("medicine_quantity")));
+                medicine.setMedicineDiscount(Double.valueOf(rs.getString("medicine_discount")));
+                medicine.setMedicineVat(Double.valueOf(rs.getString("medicine_vat")));
+                medicine.setMedicineTotalAmounnt(Double.valueOf(rs.getString("medicine_total_amounnt")));
+                medicine.setMedicinePaidAmount(Double.valueOf(rs.getString("medicine_paid_amount")));
+                medicine.setMedicineDueAmount(Double.valueOf(rs.getString("medicine_due_amount")));
+                medicine.setSalesSellingPrice(Double.valueOf(rs.getString("sales_selling_price")));
+            }
+        } catch (Exception e) {
+        }finally{
+            try {
+                ps.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+        return medicine;
 
 }
+
+}
+
 
 

@@ -5,9 +5,14 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.MedicineDao;
 import com.pharmacy.dao.SalesDao;
+import com.pharmacy.model.Medicine;
 import com.pharmacy.model.Sales;
+import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -54,7 +59,7 @@ public class SalesApp extends javax.swing.JFrame {
         salesAddress = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         salesCode = new javax.swing.JTextField();
-        paymentType = new javax.swing.JComboBox<String>();
+        paymentType = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
         salesName = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
@@ -67,6 +72,9 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel29 = new javax.swing.JLabel();
         medicineName = new javax.swing.JTextField();
         salesGender = new javax.swing.JComboBox();
+        btnSearch = new javax.swing.JButton();
+        salesLabel = new javax.swing.JLabel();
+        btnAddCal = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         sellingPrice = new javax.swing.JTextField();
@@ -83,11 +91,12 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         sellingVat = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        addSalesTable = new javax.swing.JTable();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        quantity = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -245,7 +254,7 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Address");
 
-        paymentType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "bKash", "Nagod", " " }));
+        paymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "bKash", "Nagod", " " }));
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Name");
@@ -269,6 +278,20 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel29.setText("Payment Type");
 
         salesGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female", "Other" }));
+
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        btnAddCal.setText("Add");
+        btnAddCal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -295,7 +318,18 @@ public class SalesApp extends javax.swing.JFrame {
                     .addComponent(paymentType, 0, 192, Short.MAX_VALUE)
                     .addComponent(medicineName)
                     .addComponent(salesGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(btnSearch)
+                                .addContainerGap())
+                            .addComponent(salesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddCal)
+                        .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,15 +357,19 @@ public class SalesApp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
-                    .addComponent(medicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(medicineName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
                 .addGap(11, 11, 11)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(paymentType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(paymentType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel29))
+                    .addComponent(salesLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(salesAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(salesAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddCal))
                 .addContainerGap())
         );
 
@@ -429,7 +467,7 @@ public class SalesApp extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        addSalesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -440,7 +478,7 @@ public class SalesApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(addSalesTable);
 
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -472,16 +510,13 @@ public class SalesApp extends javax.swing.JFrame {
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("CLEAR");
 
+        quantity.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 80, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -497,6 +532,13 @@ public class SalesApp extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(221, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 99, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,8 +548,10 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,9 +703,29 @@ salesName.setText(s.getSalesName());
 salesContact.setText(s.getSalesContact());
 salesAddress.setText(s.getSalesAddress());
 //salesGender.s
+
+String g = s.getSalesGender();
+salesGender = (JComboBox) new SalesDao().getAll();
+    for (int i = 0; i < salesGender.getItemCount(); i++) {
+       salesGender.addItem(salesGender.getItemAt(i));
+        if (salesGender.getItemAt(i).equals(g)) {
+            salesGender.setSelectedItem(g);
+        }
+    }
+
 //salesDate.setDate(date);
 medicineName.setText(s.getMedicineName());
 //paymentType.setText(s.getMedicineName());
+String p = s.getPaymentType();
+paymentType =  (JComboBox<String>) new SalesDao().getAll();
+    for (int i = 0; i < paymentType.getItemCount(); i++) {
+        paymentType.addItem(paymentType.getItemAt(i));
+        if (paymentType.getItemAt(i).equals(p)) {
+            paymentType.setSelectedItem(p);
+        }
+    }
+        
+        
 sellingPrice.setText(Double.valueOf(s.getSellingPrice()).toString());
 sellingQuantity.setText(Double.valueOf(s.getSellingQuantity()).toString());
 sellingDiscountPercentage.setText(Double.valueOf(s.getSellingDiscountPercentage()).toString());
@@ -706,6 +770,28 @@ sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnUpdateActionPerformed
+Medicine m;
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String mName = medicineName.getText();
+        m = new MedicineDao().getByName(mName);
+        salesLabel.setText(m.getMedicineCode()+" "+ m.getMedicineName()+" "+m.getMedicineBuyingPrice()+" "+m.getMedicineQuantity()+" "+m.getMedicineDiscount());
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnAddCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCalActionPerformed
+        // TODO add your handling code here:
+        int pQuantity = Integer.valueOf(quantity.getText());
+        DefaultTableModel model = (DefaultTableModel) addSalesTable.getModel();
+        Vector v = new Vector();
+        v.add(m.getMedicineCode());
+        v.add(m.getMedicineName());
+        v.add(pQuantity);
+        v.add(m.getMedicineBuyingPrice());
+        v.add((m.getMedicineBuyingPrice()*pQuantity));
+        model.addRow(v);
+        m = null;
+        quantity.setText(null);
+    }//GEN-LAST:event_btnAddCalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -746,10 +832,13 @@ sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable addSalesTable;
     private javax.swing.JButton branchMenu;
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAddCal;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;
     private com.toedter.calendar.demo.DateChooserPanelBeanInfo dateChooserPanelBeanInfo1;
@@ -779,18 +868,19 @@ sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton logoutMenu;
     private javax.swing.JButton medicineItemMenu;
     private javax.swing.JButton medicineMenu;
     private javax.swing.JTextField medicineName;
     private javax.swing.JButton medicineReportMenu;
     private javax.swing.JComboBox<String> paymentType;
+    private javax.swing.JTextField quantity;
     private javax.swing.JTextField salesAddress;
     private javax.swing.JTextField salesCode;
     private javax.swing.JTextField salesContact;
     private com.toedter.calendar.JDateChooser salesDate;
     private javax.swing.JComboBox salesGender;
+    private javax.swing.JLabel salesLabel;
     private javax.swing.JButton salesMenu;
     private javax.swing.JTextField salesName;
     private javax.swing.JButton salesReportMenu;

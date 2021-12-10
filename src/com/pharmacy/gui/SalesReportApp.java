@@ -8,6 +8,7 @@ package com.pharmacy.gui;
 import com.pharmacy.dao.SalesDao;
 import com.pharmacy.model.Sales;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
@@ -427,11 +428,11 @@ public class SalesReportApp extends javax.swing.JFrame {
                 s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
                 s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
                 s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
-//                s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
-//                s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString());
+                s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
+//                s.setSalesDate(Date.(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString()));
                 
                 s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
-//                s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
+               s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
                 s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
                 s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
                 s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
