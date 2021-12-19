@@ -9,6 +9,7 @@ import com.pharmacy.dao.MedicineDao;
 import com.pharmacy.dao.SalesDao;
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.Sales;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -23,8 +24,14 @@ public class SalesApp extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    List<Sales> sales;
+    
     public SalesApp() {
         initComponents();
+        sales = new SalesDao().getAll();
+        for (int i = 0; i < sales.size(); i++) {
+            salesGender.addItem(sales.get(i).getSalesGender());
+        }
     }
 
     /**
@@ -74,7 +81,7 @@ public class SalesApp extends javax.swing.JFrame {
         salesGender = new javax.swing.JComboBox();
         btnSearch = new javax.swing.JButton();
         salesLabel = new javax.swing.JLabel();
-        btnAddCal = new javax.swing.JButton();
+        btnAddCalculation = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         sellingPrice = new javax.swing.JTextField();
@@ -286,10 +293,10 @@ public class SalesApp extends javax.swing.JFrame {
             }
         });
 
-        btnAddCal.setText("Add");
-        btnAddCal.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCalculation.setText("Add");
+        btnAddCalculation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCalActionPerformed(evt);
+                btnAddCalculationActionPerformed(evt);
             }
         });
 
@@ -328,7 +335,7 @@ public class SalesApp extends javax.swing.JFrame {
                             .addComponent(salesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddCal)
+                        .addComponent(btnAddCalculation)
                         .addContainerGap())))
         );
         jPanel4Layout.setVerticalGroup(
@@ -369,7 +376,7 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(salesAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAddCal))
+                    .addComponent(btnAddCalculation))
                 .addContainerGap())
         );
 
@@ -469,10 +476,7 @@ public class SalesApp extends javax.swing.JFrame {
 
         addSalesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -632,12 +636,12 @@ public class SalesApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         new MedicineApp().setVisible(true);
-       
+
     }//GEN-LAST:event_medicineMenuActionPerformed
 
     private void telemedicineMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telemedicineMenuActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         new TelemedicineApp().setVisible(true);
     }//GEN-LAST:event_telemedicineMenuActionPerformed
 
@@ -667,13 +671,13 @@ public class SalesApp extends javax.swing.JFrame {
 
     private void homeDeliveryMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeDeliveryMenuActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         new HomeDeliveryApp().setVisible(true);
     }//GEN-LAST:event_homeDeliveryMenuActionPerformed
 
     private void medicineItemMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicineItemMenuActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         new MedicineItemApp().setVisible(true);
     }//GEN-LAST:event_medicineItemMenuActionPerformed
 
@@ -691,56 +695,52 @@ public class SalesApp extends javax.swing.JFrame {
 
     private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
         // TODO add your handling code here:
-         int logOut = JOptionPane.showConfirmDialog(null,"Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
-        if(logOut == 0){
+        int logOut = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
+        if (logOut == 0) {
             this.setVisible(false);
-        new LoginApp().setVisible(true);
+            new LoginApp().setVisible(true);
         }
     }//GEN-LAST:event_logoutMenuActionPerformed
-public void addValue(Sales s){
-salesCode.setText(s.getSalesCode());
-salesName.setText(s.getSalesName());
-salesContact.setText(s.getSalesContact());
-salesAddress.setText(s.getSalesAddress());
-//salesGender.s
+    public void addValue(Sales s) {
+        salesCode.setText(s.getSalesCode());
+        salesName.setText(s.getSalesName());
+        salesContact.setText(s.getSalesContact());
+        salesAddress.setText(s.getSalesAddress());
 
-String g = s.getSalesGender();
-salesGender = (JComboBox) new SalesDao().getAll();
-    for (int i = 0; i < salesGender.getItemCount(); i++) {
-       salesGender.addItem(salesGender.getItemAt(i));
-        if (salesGender.getItemAt(i).equals(g)) {
-            salesGender.setSelectedItem(g);
+
+        String g = s.getSalesGender();
+        sales =  new SalesDao().getAll();
+        for (int i = 0; i < sales.size(); i++) {
+            salesGender.addItem(sales.get(i).getSalesGender());
+            if (sales.get(i).getSalesGender().equals(g)) {
+                salesGender.setSelectedItem(g);
+            }
         }
-    }
 
 //salesDate.setDate(date);
-medicineName.setText(s.getMedicineName());
-//paymentType.setText(s.getMedicineName());
-String p = s.getPaymentType();
-paymentType =  (JComboBox<String>) new SalesDao().getAll();
-    for (int i = 0; i < paymentType.getItemCount(); i++) {
-        paymentType.addItem(paymentType.getItemAt(i));
-        if (paymentType.getItemAt(i).equals(p)) {
-            paymentType.setSelectedItem(p);
+        
+
+        String p = s.getPaymentType();
+        sales =  new SalesDao().getAll();
+        for (int i = 0; i < sales.size(); i++) {
+            paymentType.addItem(sales.get(i).getPaymentType());
+            if (sales.get(i).getPaymentType().equals(p)) {
+                paymentType.setSelectedItem(p);
+            }
         }
+
+        sellingPrice.setText(Double.valueOf(s.getSellingPrice()).toString());
+        sellingQuantity.setText(Double.valueOf(s.getSellingQuantity()).toString());
+        sellingDiscountPercentage.setText(Double.valueOf(s.getSellingDiscountPercentage()).toString());
+        sellingVat.setText(Double.valueOf(s.getSellingVat()).toString());
+        sellingTotalAmount.setText(Double.valueOf(s.getSellingTotalAmount()).toString());
+        sellingPaidAmount.setText(Double.valueOf(s.getSellingPaidAmount()).toString());
+        sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
+
     }
-        
-        
-sellingPrice.setText(Double.valueOf(s.getSellingPrice()).toString());
-sellingQuantity.setText(Double.valueOf(s.getSellingQuantity()).toString());
-sellingDiscountPercentage.setText(Double.valueOf(s.getSellingDiscountPercentage()).toString());
-sellingVat.setText(Double.valueOf(s.getSellingVat()).toString());
-sellingTotalAmount.setText(Double.valueOf(s.getSellingTotalAmount()).toString());
-sellingPaidAmount.setText(Double.valueOf(s.getSellingPaidAmount()).toString());
-sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
-
-
-
-
-}
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        Sales  sales = new Sales();
+        Sales sales = new Sales();
         sales.setSalesCode(salesCode.getText());
         sales.setSalesName(salesName.getText());
         sales.setSalesContact(salesContact.getText());
@@ -756,7 +756,7 @@ sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
         sales.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
         sales.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
         sales.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
-        
+
         int status = new SalesDao().save(sales);
 
         if (status > 0) {
@@ -770,15 +770,15 @@ sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
         // TODO add your handling code here:
 
     }//GEN-LAST:event_btnUpdateActionPerformed
-Medicine m;
+    Medicine m;
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
         String mName = medicineName.getText();
         m = new MedicineDao().getByName(mName);
-        salesLabel.setText(m.getMedicineCode()+" "+ m.getMedicineName()+" "+m.getMedicineBuyingPrice()+" "+m.getMedicineQuantity()+" "+m.getMedicineDiscount());
+//        salesLabel.setText(m.getMedicineCode() + " " + m.getMedicineName() + " " + m.getSalesSellingPrice());
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnAddCalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCalActionPerformed
+    private void btnAddCalculationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCalculationActionPerformed
         // TODO add your handling code here:
         int pQuantity = Integer.valueOf(quantity.getText());
         DefaultTableModel model = (DefaultTableModel) addSalesTable.getModel();
@@ -787,11 +787,11 @@ Medicine m;
         v.add(m.getMedicineName());
         v.add(pQuantity);
         v.add(m.getMedicineBuyingPrice());
-        v.add((m.getMedicineBuyingPrice()*pQuantity));
+        v.add((m.getMedicineBuyingPrice() * pQuantity));
         model.addRow(v);
         m = null;
         quantity.setText(null);
-    }//GEN-LAST:event_btnAddCalActionPerformed
+    }//GEN-LAST:event_btnAddCalculationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -835,7 +835,7 @@ Medicine m;
     private javax.swing.JTable addSalesTable;
     private javax.swing.JButton branchMenu;
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAddCal;
+    private javax.swing.JButton btnAddCalculation;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSearch;

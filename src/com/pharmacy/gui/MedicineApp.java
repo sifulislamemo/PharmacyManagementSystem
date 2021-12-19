@@ -25,15 +25,16 @@ public class MedicineApp extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    List<Medicine> medicine;
     List<Branch> branch;
     List<Company> company;
     List<MedicineItem> medicineItem;
-    
+
     public MedicineApp() {
         initComponents();
         branch = new BranchDao().getAll();
-        company= new CompanyDao().getAll();
-        medicineItem= new MedicineItemDao().getAll();
+        company = new CompanyDao().getAll();
+        medicineItem = new MedicineItemDao().getAll();
         for (int i = 0; i < branch.size(); i++) {
             branchLocation.addItem(branch.get(i).getBranchLocation());
         }
@@ -43,6 +44,23 @@ public class MedicineApp extends javax.swing.JFrame {
         for (int i = 0; i < medicineItem.size(); i++) {
             medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
         }
+    }
+
+    MedicineApp(Medicine s) {
+        initComponents();
+        branch = new BranchDao().getAll();
+        company = new CompanyDao().getAll();
+        medicineItem = new MedicineItemDao().getAll();
+        for (int i = 0; i < branch.size(); i++) {
+            branchLocation.addItem(branch.get(i).getBranchLocation());
+        }
+        for (int i = 0; i < company.size(); i++) {
+            companyName.addItem(company.get(i).getCompanyName());
+        }
+        for (int i = 0; i < medicineItem.size(); i++) {
+            medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
+        }
+        addValue(s);
     }
 
     /**
@@ -100,9 +118,7 @@ public class MedicineApp extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         medicineTotalAmounnt = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        medicinePaidAmount = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
-        medicineDueAmount = new javax.swing.JTextField();
+        medicineSellingPercent = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         medicineVat = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -431,17 +447,26 @@ public class MedicineApp extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel25.setText("Total Amount");
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel26.setText("Paid Amount");
+        medicineTotalAmounnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                medicineTotalAmounntMouseClicked(evt);
+            }
+        });
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel27.setText("Due Amount");
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel26.setText("Selling(%)");
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel28.setText("Vat(%)");
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel14.setText("Selling Price");
+        jLabel14.setText("Selling Price Per Unit");
+
+        salesSellingPrice.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesSellingPriceMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -462,18 +487,15 @@ public class MedicineApp extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
                             .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(salesSellingPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(medicineVat, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(medicineTotalAmounnt, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(medicinePaidAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(medicineDueAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(medicineSellingPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(medicineDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -508,16 +530,12 @@ public class MedicineApp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medicinePaidAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medicineDueAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(medicineSellingPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(salesSellingPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(82, Short.MAX_VALUE))
         );
 
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
@@ -619,7 +637,7 @@ public class MedicineApp extends javax.swing.JFrame {
 
     private void telemedicineMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telemedicineMenuActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         new TelemedicineApp().setVisible(true);
     }//GEN-LAST:event_telemedicineMenuActionPerformed
 
@@ -673,10 +691,10 @@ public class MedicineApp extends javax.swing.JFrame {
 
     private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
         // TODO add your handling code here:
-         int logOut = JOptionPane.showConfirmDialog(null,"Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
-        if(logOut == 0){
+        int logOut = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
+        if (logOut == 0) {
             this.setVisible(false);
-        new LoginApp().setVisible(true);
+            new LoginApp().setVisible(true);
         }
     }//GEN-LAST:event_logoutMenuActionPerformed
 
@@ -686,67 +704,60 @@ public class MedicineApp extends javax.swing.JFrame {
         new MedicineApp().setVisible(true);
 
     }//GEN-LAST:event_medicineMenuActionPerformed
-public void addValue(Medicine s){
-    medicineCode.setText(s.getMedicineCode());
-    medicineName.setText(s.getMedicineName());
-    medicineManufacturingDate.setDateFormatString(s.getMedicineManufacturingDate());
-    medicineManufacturingDate.setDateFormatString(s.getMedicineExpirationDate());
-    medicineBatchNo.setText(s.getMedicineBatchNo());
-    medicineBuyingPrice.setText(Double.valueOf(s.getMedicineBuyingPrice()).toString());
-    medicineQuantity.setText(Double.valueOf(s.getMedicineQuantity()).toString());
-    medicineDiscount.setText(Double.valueOf(s.getMedicineDiscount()).toString());
-    medicineVat.setText(Double.valueOf(s.getMedicineVat()).toString());
-    medicineTotalAmounnt.setText(Double.valueOf(s.getMedicineTotalAmounnt()).toString());
-    medicinePaidAmount.setText(Double.valueOf(s.getMedicinePaidAmount()).toString());
-    medicineDueAmount.setText(Double.valueOf(s.getMedicineDueAmount()).toString());
-    salesSellingPrice.setText(Double.valueOf(s.getSalesSellingPrice()).toString());
-    String b = s.getBranchLocation();
-    branch = new BranchDao().getAll();
-    System.out.println(b);
+    public void addValue(Medicine s) {
+        medicineCode.setText(s.getMedicineCode());
+        medicineName.setText(s.getMedicineName());
+    medicineManufacturingDate.setDate(s.getMedicineManufacturingDate());
+    medicineExpirationDate.setDate(s.getMedicineExpirationDate());
+        medicineBatchNo.setText(s.getMedicineBatchNo());
+        medicineBuyingPrice.setText(Double.valueOf(s.getMedicineBuyingPrice()).toString());
+        medicineQuantity.setText(Double.valueOf(s.getMedicineQuantity()).toString());
+        medicineDiscount.setText(Double.valueOf(s.getMedicineDiscount()).toString());
+        medicineVat.setText(Double.valueOf(s.getMedicineVat()).toString());
+        medicineTotalAmounnt.setText(Double.valueOf(s.getMedicineTotalAmounnt()).toString());
+        medicineSellingPercent.setText(Double.valueOf(s.getMedicineSellingPercent()).toString());
+        salesSellingPrice.setText(Double.valueOf(s.getSalesSellingPrice()).toString());
+        String b = s.getBranchLocation();
+        branch = new BranchDao().getAll();
+        System.out.println(b);
         for (int i = 0; i < branch.size(); i++) {
             branchLocation.addItem(branch.get(i).getBranchLocation());
-            if(branch.get(i).getBranchLocation().equals(b)){
-                     branchLocation.setSelectedItem(b);
+            if (branch.get(i).getBranchLocation().equals(b)) {
+                branchLocation.setSelectedItem(b);
             }
         }
-    String c = s.getCompanyName();
-    company = new CompanyDao().getAll();
-    for (int i = 0; i < company.size(); i++) {
-        companyName.addItem(company.get(i).getCompanyName());
-        if (company.get(i).getCompanyName().equals(c)) {
-            companyName.setSelectedItem(c);
+        String c = s.getCompanyName();
+        company = new CompanyDao().getAll();
+        for (int i = 0; i < company.size(); i++) {
+            companyName.addItem(company.get(i).getCompanyName());
+            if (company.get(i).getCompanyName().equals(c)) {
+                companyName.setSelectedItem(c);
+            }
         }
-    }
-    String mi = s.getMedicineItemName();
-    medicineItem= new MedicineItemDao().getAll();;
-    for (int i = 0; i < medicineItem.size(); i++) {
+        String mi = s.getMedicineItemName();
+        medicineItem = new MedicineItemDao().getAll();;
+        for (int i = 0; i < medicineItem.size(); i++) {
             medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
             if (medicineItem.get(i).getMedicineItemName().equals(mi)) {
-            medicineItemName.setSelectedItem(mi);
+                medicineItemName.setSelectedItem(mi);
+            }
         }
-        }
-    
-      
-   
-        
-      
 
-}
+    }
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         // TODO add your handling code here:
-       Medicine  medicine = new Medicine();
+        Medicine medicine = new Medicine();
         medicine.setMedicineCode(medicineCode.getText());
         medicine.setMedicineName(medicineName.getText());
-        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDateFormatString());
-        medicine.setMedicineExpirationDate(medicineExpirationDate.getDateFormatString());
+        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDate());
+        medicine.setMedicineExpirationDate(medicineExpirationDate.getDate());
         medicine.setMedicineBatchNo(medicineBatchNo.getText());
         medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
         medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
         medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
         medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
         medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
-        medicine.setMedicinePaidAmount(Double.valueOf(medicinePaidAmount.getText()));
-        medicine.setMedicineDueAmount(Double.valueOf(medicineDueAmount.getText()));
+        medicine.setMedicineSellingPercent(Double.valueOf(medicineSellingPercent.getText()));
         medicine.setSalesSellingPrice(Double.valueOf(salesSellingPrice.getText()));
         medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
         medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
@@ -764,35 +775,81 @@ public void addValue(Medicine s){
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         Medicine medicine = new Medicine();
-       medicine.setMedicineCode(medicineCode.getText());
+        medicine.setMedicineCode(medicineCode.getText());
         medicine.setMedicineName(medicineName.getText());
-        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDateFormatString());
-        medicine.setMedicineExpirationDate(medicineExpirationDate.getDateFormatString());
+        medicine.setMedicineManufacturingDate(medicineManufacturingDate.getDate());
+        medicine.setMedicineExpirationDate(medicineExpirationDate.getDate());
         medicine.setMedicineBatchNo(medicineBatchNo.getText());
         medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
         medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
         medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
         medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
         medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
-        medicine.setMedicinePaidAmount(Double.valueOf(medicinePaidAmount.getText()));
-        medicine.setMedicineDueAmount(Double.valueOf(medicineDueAmount.getText()));
+        medicine.setMedicineSellingPercent(Double.valueOf(medicineSellingPercent.getText()));
         medicine.setSalesSellingPrice(Double.valueOf(salesSellingPrice.getText()));
         medicine.setBranchLocation(branchLocation.getSelectedItem().toString());
         medicine.setCompanyName(companyName.getSelectedItem().toString());
         medicine.setMedicineItemName(medicineItemName.getSelectedItem().toString());
-        
-        
+
         int status = new MedicineDao().update(medicine);
         if (status > 0) {
             JOptionPane.showMessageDialog(rootPane, "Medicine Update!");
         } else {
             JOptionPane.showMessageDialog(rootPane, "Medicine NOT Update!");
         }
+
+        this.setVisible(false);
+        new MedicineApp().setVisible(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void medicineTotalAmounntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_medicineTotalAmounntMouseClicked
+        // TODO add your handling code here:
+        totalBuyingAmount();
+    }//GEN-LAST:event_medicineTotalAmounntMouseClicked
+
+    private void salesSellingPriceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesSellingPriceMouseClicked
+        // TODO add your handling code here:
+        totalSellingPrice();
+    }//GEN-LAST:event_salesSellingPriceMouseClicked
+
+    public void totalBuyingAmount() {
+        String buyPrice = medicineBuyingPrice.getText();
+        double bprice = Double.parseDouble(buyPrice);
+        String buyQty = medicineQuantity.getText();
+        double bQty = Double.parseDouble(buyQty);
+        String buyDiscount = medicineDiscount.getText();
+        double bDiscount = Double.parseDouble(buyDiscount);
+        String buyVat = medicineVat.getText();
+        double bVat = Double.parseDouble(buyVat);
+        double totalAmount = bprice * bQty;
+        double buyAfterDiscount = totalAmount * (bDiscount / 100);
+        totalAmount = totalAmount - buyAfterDiscount;
+        double buyAfterVat = totalAmount * (bVat / 100);
+        totalAmount = totalAmount + buyAfterVat;
+        String totalBuy = String.valueOf(totalAmount);
+        medicineTotalAmounnt.setText(totalBuy);
+
+//    System.out.println(totalAmount);
+    }
+
+    public void totalSellingPrice() {
+        String sellingPercent = medicineSellingPercent.getText();
+        double sPercent = Double.parseDouble(sellingPercent);
+        String totalPrice = medicineTotalAmounnt.getText();
+        double tPrice = Double.parseDouble(totalPrice);
+        String buyQty = medicineQuantity.getText();
+        double bQty = Double.parseDouble(buyQty);
+        double perSales = tPrice/bQty;
+        double sellPercent = perSales * (sPercent / 100);
+        perSales = perSales + sellPercent;
+        String totalSell = String.valueOf(perSales);
+        salesSellingPrice.setText(totalSell);
+
+    }
 
     /**
      * @param args the command line arguments
@@ -861,7 +918,6 @@ public void addValue(Medicine s){
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -873,16 +929,15 @@ public void addValue(Medicine s){
     private javax.swing.JTextField medicineBuyingPrice;
     private javax.swing.JTextField medicineCode;
     private javax.swing.JTextField medicineDiscount;
-    private javax.swing.JTextField medicineDueAmount;
     private com.toedter.calendar.JDateChooser medicineExpirationDate;
     private javax.swing.JButton medicineItemMenu;
     private javax.swing.JComboBox<String> medicineItemName;
     private com.toedter.calendar.JDateChooser medicineManufacturingDate;
     private javax.swing.JButton medicineMenu;
     private javax.swing.JTextField medicineName;
-    private javax.swing.JTextField medicinePaidAmount;
     private javax.swing.JTextField medicineQuantity;
     private javax.swing.JButton medicineReportMenu;
+    private javax.swing.JTextField medicineSellingPercent;
     private javax.swing.JTextField medicineTotalAmounnt;
     private javax.swing.JTextField medicineVat;
     private javax.swing.JButton salesMenu;

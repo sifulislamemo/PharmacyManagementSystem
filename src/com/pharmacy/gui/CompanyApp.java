@@ -515,6 +515,7 @@ public class CompanyApp extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(rootPane, "Company NOT Update!");
         }
+        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -620,23 +621,23 @@ private void getAllCompany() {
         }
 
         try {
-            String columns[] = {"id", "company_code", "company_name", "company_contract_no", "company_address"};
+            String columns[] = {"company_code", "company_name", "company_contract_no", "company_address"};
             String data[][] = new String[c.size()][10];
             String sql = "select * from company";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet res = ps.executeQuery();
             int i = 0;
             while (res.next()) {
-                int id = res.getInt("id");
+                
                 String cCode = res.getString("company_code");
                 String cName = res.getString("company_name");
                 String cContractNo = res.getString("company_contract_no");
                 String cAddress = res.getString("company_address");
-                data[i][0] = id + "";
-                data[i][1] = cCode;
-                data[i][2] = cName;
-                data[i][3] = cContractNo;
-                data[i][4] = cAddress;
+               
+                data[i][0] = cCode;
+                data[i][1] = cName;
+                data[i][2] = cContractNo;
+                data[i][3] = cAddress;
                 i++;
             }
 
@@ -645,10 +646,10 @@ private void getAllCompany() {
             companyTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
-                    companyCode.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 1).toString());
-                    companyName.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 2).toString());
-                    companyContractNo.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 3).toString());
-                    companyAddress.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 4).toString());
+                    companyCode.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 0).toString());
+                    companyName.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 1).toString());
+                    companyContractNo.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 2).toString());
+                    companyAddress.setText(companyTable.getValueAt(companyTable.getSelectedRow(), 3).toString());
                     
 //                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
                   

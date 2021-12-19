@@ -413,26 +413,19 @@ public class SalesReportApp extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
 
-        //        List<Medicine> m = new MedicineReportDao().getAll();
-        //        Medicine medicine = new Medicine();
-        //       medicine.setMedicineCode(medicine.getMedicineCode());
-        //        System.out.println(medicine.getMedicineCode());
-        //        medicine.setMedicineName(medicine.getMedicineName());
-
         salesReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Sales s = new Sales();
                 s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                
-                s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
+                s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
                 s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
                 s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
                 s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
 //                s.setSalesDate(Date.(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString()));
                 
                 s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
-               s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
+                s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
                 s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
                 s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
                 s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
@@ -451,23 +444,17 @@ public class SalesReportApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 private void getAllSalesReport() {
-//        // TODO add your handling code here:
+       // TODO add your handling code here:
 //
         List<Sales> m = new SalesDao().getAll();
-        Sales sales = new Sales();
-//
-////        for (Medicine medicine : m) {
-////            System.out.println(medicine.getMedicineBatchNo());
-////        }
-////        List<Store> stores = new StoreDAO().getAll();
-////        Store store = new Store();
-//
-         String[] columnNames = {"sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date","medicine_name","sales_payment_type","sales_price","sales_quantity","sales_discount_percentage","sales_vat","sales_total_amount","sales_paid_amount","sales__due_amount"};
-        Object[][] data = new Object[m.size()][15];
+//        Sales sales = new Sales();
+
+         String[] columnNames = {"id", "sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date", "medicine_name","sales_payment_type","sales_price","sales_quantity","sales_discount_percentage","sales_vat","sales_total_amount","sales_paid_amount","sales__due_amount"};
+        Object[][] data = new Object[m.size()][16];
           for (int i = 0; i < m.size(); i++) {
            Sales s = m.get(i);
-            Object[] o = {s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getMedicineName(), s.getPaymentType(), s.getSellingPrice(), s.getSellingQuantity(), s.getSellingDiscountPercentage(), s.getSellingVat(), s.getSellingTotalAmount(), s.getSellingPaidAmount(), s.getSellingDueAmount(),};
-            for (int j = 0; j < 15; j++) {
+            Object[] o = {s.getId(), s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getMedicineName(), s.getPaymentType(), s.getSellingPrice(), s.getSellingQuantity(), s.getSellingDiscountPercentage(), s.getSellingVat(), s.getSellingTotalAmount(), s.getSellingPaidAmount(), s.getSellingDueAmount(),};
+            for (int j = 0; j < 16; j++) {
                 data[i][j] = o[j];
             }
         }

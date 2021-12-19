@@ -29,6 +29,7 @@ public class BranchApp extends javax.swing.JFrame {
      * Creates new form Main
      */
 //    DefaultTableModel defaultTableModel;
+    DefaultTableModel model;
     public BranchApp() {
         initComponents();
         getAllBranch();
@@ -296,6 +297,11 @@ public class BranchApp extends javax.swing.JFrame {
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("CLEAR");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -499,7 +505,7 @@ public class BranchApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Saved!");
         }
         getAllBranch();
-        clearFields();
+//        clearFields();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void branchTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_branchTableMouseClicked
@@ -522,15 +528,15 @@ public class BranchApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Update!");
         }
         getAllBranch();
-        clearFields();
+//        clearFields();
 
     }//GEN-LAST:event_btnUpdateActionPerformed
-private void clearFields(){
-branchCode.setText("");
-branchName.setText("");
-branchLocation.setText("");
-
-}
+//private void clearFields(){
+//branchCode.setText("");
+//branchName.setText("");
+//branchLocation.setText("");
+//
+//}
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
          int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
@@ -549,10 +555,24 @@ branchLocation.setText("");
         }else{
             JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
         }
-        clearFields();
+//        clearFields();
         getAllBranch();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+     public void clear() {
+        branchCode.setText("");
+branchName.setText("");
+branchLocation.setText("");
+        if(branchTable.getRowCount()>0){
+            for (int i = branchTable.getRowCount()-1; i > -1; i--) {
+                model.removeRow(i);                
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -668,17 +688,7 @@ branchLocation.setText("");
                     
                 }
             });
-//            JTable table = new JTable(data, columns);
-//            table.setShowGrid(true);
-//            table.setShowVerticalLines(true);
-//            JScrollPane pane = new JScrollPane(table);
-//            JFrame f = new JFrame();
-//            JPanel panel = new JPanel();
-//            panel.add(pane);
-//            f.add(panel);
-//            f.setSize(500, 250);
-//            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//            f.setVisible(true);
+
 
         } catch (SQLException ex) {
             Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);

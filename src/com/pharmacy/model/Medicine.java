@@ -5,6 +5,8 @@
  */
 package com.pharmacy.model;
 
+import java.util.Date;
+
 /**
  *
  * @author USER
@@ -13,16 +15,15 @@ public class Medicine {
     private int id;
     private String medicineCode;
     private String medicineName;
-    private String medicineManufacturingDate;
-    private String medicineExpirationDate;
+    private Date medicineManufacturingDate;
+    private Date medicineExpirationDate;
     private String medicineBatchNo;
     private double medicineBuyingPrice;
     private double medicineQuantity;
     private double medicineDiscount;
     private double medicineVat;
     private double medicineTotalAmounnt;
-    private double medicinePaidAmount;
-    private double medicineDueAmount;
+    private double medicineSellingPercent;
     private double salesSellingPrice;
     private String branchLocation;
     private String medicineItemName;
@@ -53,21 +54,23 @@ public class Medicine {
         this.medicineName = medicineName;
     }
 
-    public String getMedicineManufacturingDate() {
+    public Date getMedicineManufacturingDate() {
         return medicineManufacturingDate;
     }
 
-    public void setMedicineManufacturingDate(String medicineManufacturingDate) {
+    public void setMedicineManufacturingDate(Date medicineManufacturingDate) {
         this.medicineManufacturingDate = medicineManufacturingDate;
     }
 
-    public String getMedicineExpirationDate() {
+    public Date getMedicineExpirationDate() {
         return medicineExpirationDate;
     }
 
-    public void setMedicineExpirationDate(String medicineExpirationDate) {
+    public void setMedicineExpirationDate(Date medicineExpirationDate) {
         this.medicineExpirationDate = medicineExpirationDate;
     }
+
+   
 
     public String getMedicineBatchNo() {
         return medicineBatchNo;
@@ -117,21 +120,14 @@ public class Medicine {
         this.medicineTotalAmounnt = medicineTotalAmounnt;
     }
 
-    public double getMedicinePaidAmount() {
-        return medicinePaidAmount;
+    public double getMedicineSellingPercent() {
+        return medicineSellingPercent;
     }
 
-    public void setMedicinePaidAmount(double medicinePaidAmount) {
-        this.medicinePaidAmount = medicinePaidAmount;
+    public void setMedicineSellingPercent(double medicineSellingPercent) {
+        this.medicineSellingPercent = medicineSellingPercent;
     }
 
-    public double getMedicineDueAmount() {
-        return medicineDueAmount;
-    }
-
-    public void setMedicineDueAmount(double medicineDueAmount) {
-        this.medicineDueAmount = medicineDueAmount;
-    }
 
     public double getSalesSellingPrice() {
         return salesSellingPrice;

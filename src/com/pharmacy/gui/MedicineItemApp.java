@@ -584,19 +584,19 @@ private void getAllCompany() {
         }
 
         try {
-            String columns[] = {"id", "medicine_code", "medicine_item_name"};
+            String columns[] = {"medicine_code", "medicine_item_name"};
             String data[][] = new String[m.size()][10];
             String sql = "select * from medicine_item";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet res = ps.executeQuery();
             int i = 0;
             while (res.next()) {
-                int id = res.getInt("id");
+                
                 String mCode = res.getString("medicine_code");
                 String mName = res.getString("medicine_item_name");
-                data[i][0] = id + "";
-                data[i][1] = mCode;
-                data[i][2] = mName;
+                
+                data[i][0] = mCode;
+                data[i][1] = mName;
                 i++;
             }
 
@@ -605,8 +605,8 @@ private void getAllCompany() {
             medicineItemTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
-                    medicineCode.setText(medicineItemTable.getValueAt(medicineItemTable.getSelectedRow(), 1).toString());
-                    medicineItemName.setText(medicineItemTable.getValueAt(medicineItemTable.getSelectedRow(), 2).toString());
+                    medicineCode.setText(medicineItemTable.getValueAt(medicineItemTable.getSelectedRow(), 0).toString());
+                    medicineItemName.setText(medicineItemTable.getValueAt(medicineItemTable.getSelectedRow(), 1).toString());
                  
                     
 //                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());

@@ -11,14 +11,15 @@ import com.pharmacy.dao.MedicineDao;
 import com.pharmacy.dao.MedicineItemDao;
 import com.pharmacy.model.Branch;
 import com.pharmacy.model.Company;
-
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.MedicineItem;
-
 import com.pharmacy.util.DBConnection;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -281,6 +282,11 @@ public class MedicineReportApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        medicineReportTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                medicineReportTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(medicineReportTable);
 
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
@@ -358,7 +364,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     private void telemedicineMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telemedicineMenuActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         new TelemedicineApp().setVisible(true);
     }//GEN-LAST:event_telemedicineMenuActionPerformed
 
@@ -412,10 +418,10 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
         // TODO add your handling code here:
-        int logOut = JOptionPane.showConfirmDialog(null,"Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
-        if(logOut == 0){
+        int logOut = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
+        if (logOut == 0) {
             this.setVisible(false);
-        new LoginApp().setVisible(true);
+            new LoginApp().setVisible(true);
         }
     }//GEN-LAST:event_logoutMenuActionPerformed
 
@@ -425,52 +431,10 @@ public class MedicineReportApp extends javax.swing.JFrame {
         new MedicineApp().setVisible(true);
 
     }//GEN-LAST:event_medicineMenuActionPerformed
-
+    Medicine s;
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        
-       
-        
-//        List<Medicine> m = new MedicineReportDao().getAll();
-//        Medicine medicine = new Medicine();
-//       medicine.setMedicineCode(medicine.getMedicineCode());
-//        System.out.println(medicine.getMedicineCode());
-//        medicine.setMedicineName(medicine.getMedicineName());
-        
-        medicineReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                Medicine s = new Medicine();
-                s.setMedicineCode(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
-                s.setMedicineName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString());
-                s.setMedicineManufacturingDate(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString());
-                s.setMedicineExpirationDate(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 4).toString());
-                s.setMedicineBatchNo(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 5).toString());
-                s.setMedicineBuyingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 6).toString()));
-                s.setMedicineQuantity(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 7).toString()));
-                s.setMedicineDiscount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 8).toString()));
-                s.setMedicineVat(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 9).toString()));
-                s.setMedicineTotalAmounnt(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 10).toString()));
-                s.setMedicinePaidAmount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 11).toString()));
-                s.setMedicineDueAmount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 12).toString()));
-                s.setSalesSellingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 13).toString()));
-                s.setBranchLocation(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 14).toString());
-                s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 15).toString());
-                s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 16).toString());
-              
-
-    
-
-                MedicineApp m = new MedicineApp();
-                m.setVisible(true);
-               m.addValue(s);
-               
- 
-            }
-        });
-        
-
-      
+        new MedicineApp(s).setVisible(true);
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -478,26 +442,66 @@ public class MedicineReportApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         List<Medicine> m = new MedicineDao().getAll();
         Medicine mm;
-         int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
-        if(option == 0){
+        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+        if (option == 0) {
             String sql = "delete from medicine where medicine_code = ?";
             try {
 //                mm = new Medicine();
                 PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
                 ps.setString(1, medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
                 int status = ps.executeUpdate();
-                if(status >0){
+                if (status > 0) {
                     JOptionPane.showMessageDialog(rootPane, "Medicine deleted!");
                 }
             } catch (SQLException ex) {
                 System.out.println(ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
         }
-        getAllMedicineReport();
+//        getAllMedicineReport();
     }//GEN-LAST:event_btnDeleteActionPerformed
-private void getAllMedicineReport() {
+
+    private void medicineReportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_medicineReportTableMouseClicked
+        // TODO add your handling code here:
+        int row = medicineReportTable.rowAtPoint(evt.getPoint());
+        s = new Medicine();
+        s.setMedicineCode(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 0).toString());
+        s.setMedicineName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
+//                s.setMedicineManufacturingDate(Date.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString()));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+
+        try {
+            date = sdf.parse(medicineReportTable.getValueAt(row, 2).toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(MedicineReportApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        s.setMedicineManufacturingDate(date);
+//        s.setMedicineExpirationDate(Date.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString()));
+        SimpleDateFormat sdfE = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateE = null;
+
+        try {
+            dateE = sdfE.parse(medicineReportTable.getValueAt(row, 3).toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(MedicineReportApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        s.setMedicineExpirationDate(dateE);
+        s.setMedicineBatchNo(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 4).toString());
+        s.setMedicineBuyingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 5).toString()));
+        s.setMedicineQuantity(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 6).toString()));
+        s.setMedicineDiscount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 7).toString()));
+        s.setMedicineVat(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 8).toString()));
+        s.setMedicineTotalAmounnt(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 9).toString()));
+        s.setMedicineSellingPercent(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 10).toString()));
+        s.setSalesSellingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 11).toString()));
+        s.setBranchLocation(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 12).toString());
+        s.setCompanyName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 13).toString());
+        s.setMedicineItemName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 14).toString());
+
+    }//GEN-LAST:event_medicineReportTableMouseClicked
+    private void getAllMedicineReport() {
         // TODO add your handling code here:
 
         List<Medicine> m = new MedicineDao().getAll();
@@ -506,16 +510,15 @@ private void getAllMedicineReport() {
 //        for (Medicine medicine : m) {
 //            System.out.println(medicine.getMedicineBatchNo());
 //        }
-
         try {
-            String columns[] = {"id", "medicine_code", "medicine_name", "medicine_manufacturing_date","medicine_expiration_date","medicine_batch_no","medicine_buying_price","medicine_quantity","medicine_discount","medicine_vat","medicine_total_amounnt","medicine_paid_amount","medicine_due_amount","sales_selling_price","branch_location","company_name","medicine_item_name"};
+            String columns[] = {"medicine_code", "medicine_name", "medicine_manufacturing_date", "medicine_expiration_date", "medicine_batch_no", "medicine_buying_price", "medicine_quantity", "medicine_discount", "medicine_vat", "medicine_total_amounnt", "medicine_selling_percent", "sales_selling_price", "branch_location", "company_name", "medicine_item_name"};
             String data[][] = new String[m.size()][30];
             String sql = "select * from medicine";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
             ResultSet res = ps.executeQuery();
             int i = 0;
             while (res.next()) {
-                int id = res.getInt("id");
+//                int id = res.getInt("id");
                 String mCode = res.getString("medicine_code");
                 String mName = res.getString("medicine_name");
                 String mManufacturing = res.getString("medicine_manufacturing_date");
@@ -526,29 +529,27 @@ private void getAllMedicineReport() {
                 String mDiscount = res.getString("medicine_discount");
                 String mVat = res.getString("medicine_vat");
                 String mTotalAmounnt = res.getString("medicine_total_amounnt");
-                String mPaidAmount = res.getString("medicine_paid_amount");
-                String mDueAmount = res.getString("medicine_due_amount");
+                String mSellingPercent = res.getString("medicine_selling_percent");
                 String mSellingPrice = res.getString("sales_selling_price");
                 String mBranchLocation = res.getString("branch_location");
                 String mCompanyName = res.getString("company_name");
                 String mItemName = res.getString("medicine_item_name");
-                data[i][0] = id + "";
-                data[i][1] = mCode;
-                data[i][2] = mName;
-                data[i][3] = mManufacturing;
-                data[i][4] = mExpiration;
-                data[i][5] = mBatch;
-                data[i][6] = mBuyingPrice;
-                data[i][7] = mQuantity;
-                data[i][8] = mDiscount;
-                data[i][9] = mVat;
-                data[i][10] = mTotalAmounnt;
-                data[i][11] = mPaidAmount;
-                data[i][12] = mDueAmount;
-                data[i][13] = mSellingPrice;
-                data[i][14] = mBranchLocation;
-                data[i][15] = mCompanyName;
-                data[i][16] = mItemName;
+//                data[i][0] = id + "";
+                data[i][0] = mCode;
+                data[i][1] = mName;
+                data[i][2] = mManufacturing;
+                data[i][3] = mExpiration;
+                data[i][4] = mBatch;
+                data[i][5] = mBuyingPrice;
+                data[i][6] = mQuantity;
+                data[i][7] = mDiscount;
+                data[i][8] = mVat;
+                data[i][9] = mTotalAmounnt;
+                data[i][10] = mSellingPercent;
+                data[i][11] = mSellingPrice;
+                data[i][12] = mBranchLocation;
+                data[i][13] = mCompanyName;
+                data[i][14] = mItemName;
                 i++;
             }
 
@@ -560,6 +561,7 @@ private void getAllMedicineReport() {
         }
 
     }
+
     /**
      * @param args the command line arguments
      */
