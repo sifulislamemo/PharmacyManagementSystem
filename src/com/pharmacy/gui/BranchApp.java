@@ -30,6 +30,7 @@ public class BranchApp extends javax.swing.JFrame {
      */
 //    DefaultTableModel defaultTableModel;
     DefaultTableModel model;
+
     public BranchApp() {
         initComponents();
         getAllBranch();
@@ -518,12 +519,11 @@ public class BranchApp extends javax.swing.JFrame {
         branch.setBranchCode(branchCode.getText());
         branch.setBranchName(branchName.getText());
         branch.setBranchLocation(branchLocation.getText());
-        
-        
+
         int status = new BranchDao().update(branch);
         if (status > 0) {
             JOptionPane.showMessageDialog(rootPane, "Branch Update!");
-            
+
         } else {
             JOptionPane.showMessageDialog(rootPane, "Branch NOT Update!");
         }
@@ -539,20 +539,20 @@ public class BranchApp extends javax.swing.JFrame {
 //}
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-         int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
-        if(option == 0){
+        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+        if (option == 0) {
             String sql = "delete from branch where branch_code = ?";
             try {
                 PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
                 ps.setString(1, branchCode.getText());
                 int status = ps.executeUpdate();
-                if(status >0){
+                if (status > 0) {
                     JOptionPane.showMessageDialog(rootPane, "branch deleted!");
                 }
             } catch (SQLException ex) {
                 System.out.println(ex);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
         }
 //        clearFields();
@@ -563,16 +563,17 @@ public class BranchApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_btnClearActionPerformed
-     public void clear() {
+    public void clear() {
         branchCode.setText("");
-branchName.setText("");
-branchLocation.setText("");
-        if(branchTable.getRowCount()>0){
-            for (int i = branchTable.getRowCount()-1; i > -1; i--) {
-                model.removeRow(i);                
+        branchName.setText("");
+        branchLocation.setText("");
+        if (branchTable.getRowCount() > 0) {
+            for (int i = branchTable.getRowCount() - 1; i > -1; i--) {
+                model.removeRow(i);
             }
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -653,7 +654,6 @@ branchLocation.setText("");
 //        for (Branch branch : b) {
 //            System.out.println(branch.getBranchCode()+" "+branch.getBranchName()+" "+branch.getBranchLocation());
 //        }
-
         try {
             String columns[] = {"branch_code", "branch_name", "branch_location"};
             String data[][] = new String[b.size()][10];
@@ -662,11 +662,11 @@ branchLocation.setText("");
             ResultSet res = ps.executeQuery();
             int i = 0;
             while (res.next()) {
-                
+
                 String bCode = res.getString("branch_code");
                 String bName = res.getString("branch_name");
                 String blocation = res.getString("branch_location");
-               
+
                 data[i][0] = bCode;
                 data[i][1] = bName;
                 data[i][2] = blocation;
@@ -681,14 +681,10 @@ branchLocation.setText("");
                     branchCode.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 0).toString());
                     branchName.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
                     branchLocation.setText(branchTable.getValueAt(branchTable.getSelectedRow(), 2).toString());
-                    
+
 //                    System.out.println(branchTable.getValueAt(branchTable.getSelectedRow(), 1).toString());
-                  
-                    
-                    
                 }
             });
-
 
         } catch (SQLException ex) {
             Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, ex);

@@ -124,7 +124,6 @@ public class MedicineApp extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         salesSellingPrice = new javax.swing.JTextField();
         btnClear = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnAdd1 = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
 
@@ -542,14 +541,9 @@ public class MedicineApp extends javax.swing.JFrame {
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("CLEAR");
-
-        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
-        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("DELETE");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -589,11 +583,9 @@ public class MedicineApp extends javax.swing.JFrame {
                 .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(btnUpdate)
-                .addGap(50, 50, 50)
-                .addComponent(btnDelete)
-                .addGap(49, 49, 49)
+                .addGap(67, 67, 67)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(235, 235, 235))
+                .addGap(354, 354, 354))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -606,7 +598,6 @@ public class MedicineApp extends javax.swing.JFrame {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -802,10 +793,6 @@ public class MedicineApp extends javax.swing.JFrame {
         new MedicineApp().setVisible(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void medicineTotalAmounntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_medicineTotalAmounntMouseClicked
         // TODO add your handling code here:
         totalBuyingAmount();
@@ -816,6 +803,29 @@ public class MedicineApp extends javax.swing.JFrame {
         totalSellingPrice();
     }//GEN-LAST:event_salesSellingPriceMouseClicked
 
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+public void clear(){
+medicineCode.setText("");
+medicineName.setText("");
+//medicineManufacturingDate.setDate();
+//medicineExpirationDate.setDate();
+medicineBatchNo.setText("");
+medicineBuyingPrice.setText("");
+medicineQuantity.setText("");
+medicineDiscount.setText("");
+medicineVat.setText("");
+medicineTotalAmounnt.setText("");
+medicineSellingPercent.setText("");
+salesSellingPrice.setText("");
+//branchLocation.setSelectedItem("");
+//medicineItemName.setSelectedItem("");
+//companyName.setSelectedItem("");
+
+
+}
     public void totalBuyingAmount() {
         String buyPrice = medicineBuyingPrice.getText();
         double bprice = Double.parseDouble(buyPrice);
@@ -894,7 +904,6 @@ public class MedicineApp extends javax.swing.JFrame {
     private javax.swing.JButton branchMenu;
     private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;
     private javax.swing.JComboBox<String> companyName;

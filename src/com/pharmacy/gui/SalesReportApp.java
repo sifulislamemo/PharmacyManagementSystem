@@ -8,9 +8,12 @@ package com.pharmacy.gui;
 import com.pharmacy.dao.SalesDao;
 import com.pharmacy.model.Sales;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -270,6 +273,11 @@ public class SalesReportApp extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        salesReportTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesReportTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(salesReportTable);
 
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
@@ -342,7 +350,7 @@ public class SalesReportApp extends javax.swing.JFrame {
 
     private void telemedicineMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telemedicineMenuActionPerformed
         // TODO add your handling code here:
-         this.setVisible(false);
+        this.setVisible(false);
         new TelemedicineApp().setVisible(true);
     }//GEN-LAST:event_telemedicineMenuActionPerformed
 
@@ -396,10 +404,10 @@ public class SalesReportApp extends javax.swing.JFrame {
 
     private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
         // TODO add your handling code here:
-        int logOut = JOptionPane.showConfirmDialog(null,"Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
-        if(logOut == 0){
+        int logOut = JOptionPane.showConfirmDialog(null, "Do you want to logout?", "Select", JOptionPane.YES_NO_OPTION);
+        if (logOut == 0) {
             this.setVisible(false);
-        new LoginApp().setVisible(true);
+            new LoginApp().setVisible(true);
         }
     }//GEN-LAST:event_logoutMenuActionPerformed
 
@@ -409,50 +417,54 @@ public class SalesReportApp extends javax.swing.JFrame {
         new MedicineApp().setVisible(true);
 
     }//GEN-LAST:event_medicineMenuActionPerformed
-
+    Sales s;
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
+        new SalesApp(s).setVisible(true);
 
-        salesReportTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                Sales s = new Sales();
-                s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-                s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
-                s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
-                s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
-                s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
-//                s.setSalesDate(Date.(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString()));
-                
-                s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
-                s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
-                s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
-                s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
-                s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
-                s.setSellingVat(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 12).toString()));
-                s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 13).toString()));
-                s.setSellingPaidAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 14).toString()));
-                s.setSellingDueAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 15).toString()));
-
-
-                SalesApp m = new SalesApp();
-                m.setVisible(true);
-               m.addValue(s);
-
-            }
-        });
 
     }//GEN-LAST:event_btnUpdateActionPerformed
-private void getAllSalesReport() {
-       // TODO add your handling code here:
+
+    private void salesReportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesReportTableMouseClicked
+        // TODO add your handling code here:
+        int row = salesReportTable.rowAtPoint(evt.getPoint());
+        s = new Sales();
+        s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+        s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
+        s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
+        s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
+        s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse(salesReportTable.getValueAt(row, 6).toString());
+        } catch (ParseException ex) {
+            Logger.getLogger(SalesReportApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        s.setSalesDate(date);
+        s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
+        s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
+        s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
+        s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
+        s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
+        s.setSellingVat(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 12).toString()));
+        s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 13).toString()));
+        s.setSellingPaidAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 14).toString()));
+        s.setSellingDueAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 15).toString()));
+
+
+    }//GEN-LAST:event_salesReportTableMouseClicked
+    private void getAllSalesReport() {
+        // TODO add your handling code here:
 //
         List<Sales> m = new SalesDao().getAll();
 //        Sales sales = new Sales();
 
-         String[] columnNames = {"id", "sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date", "medicine_name","sales_payment_type","sales_price","sales_quantity","sales_discount_percentage","sales_vat","sales_total_amount","sales_paid_amount","sales__due_amount"};
+        String[] columnNames = {"id", "sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date", "medicine_name", "sales_payment_type", "sales_price", "sales_quantity", "sales_discount_percentage", "sales_vat", "sales_total_amount", "sales_paid_amount", "sales__due_amount"};
         Object[][] data = new Object[m.size()][16];
-          for (int i = 0; i < m.size(); i++) {
-           Sales s = m.get(i);
+        for (int i = 0; i < m.size(); i++) {
+            Sales s = m.get(i);
             Object[] o = {s.getId(), s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getMedicineName(), s.getPaymentType(), s.getSellingPrice(), s.getSellingQuantity(), s.getSellingDiscountPercentage(), s.getSellingVat(), s.getSellingTotalAmount(), s.getSellingPaidAmount(), s.getSellingDueAmount(),};
             for (int j = 0; j < 16; j++) {
                 data[i][j] = o[j];
@@ -468,7 +480,8 @@ private void getAllSalesReport() {
 //        }
 //
 //    }
-}
+    }
+
     /**
      * @param args the command line arguments
      */

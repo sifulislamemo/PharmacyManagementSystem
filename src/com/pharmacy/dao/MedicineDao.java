@@ -104,7 +104,22 @@ public class MedicineDao implements ICommonInterface<Medicine> {
 
     @Override
     public int delete(Medicine t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql = "delete from medicine where medicine_code = ?";
+        int status = 0;
+
+        try {
+            con = DBConnection.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, t.getMedicineCode());
+
+            status = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MedicineDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return status;
+        
+        
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

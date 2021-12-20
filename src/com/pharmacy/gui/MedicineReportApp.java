@@ -440,26 +440,19 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-        List<Medicine> m = new MedicineDao().getAll();
-        Medicine mm;
+    Medicine medicine = new Medicine();
         int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
         if (option == 0) {
-            String sql = "delete from medicine where medicine_code = ?";
-            try {
-//                mm = new Medicine();
-                PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-                ps.setString(1, medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
-                int status = ps.executeUpdate();
-                if (status > 0) {
-                    JOptionPane.showMessageDialog(rootPane, "Medicine deleted!");
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex);
+            medicine.setMedicineCode(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 0).toString());
+            int status = new MedicineDao().delete(medicine);
+            if (status > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Medicine delete!");
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Medicine Not delete!");
             }
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Your Data is safe!");
         }
-//        getAllMedicineReport();
+        getAllMedicineReport();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void medicineReportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_medicineReportTableMouseClicked
