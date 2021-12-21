@@ -839,48 +839,62 @@ public class SalesApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Sales NOT update!");
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
-    Medicine m;
+    Medicine mm;
     double tQty;
     double tPrice;
+    int row;
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        String mName = medicineName.getText();
-        m = new MedicineDao().getByName(mName);
-        salesLabel.setText(m.getMedicineCode() + " " + m.getMedicineName() + " " + m.getSalesSellingPrice() + " ");
+
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddCalculationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCalculationActionPerformed
         // TODO add your handling code here:
-        double pQuantity = Double.valueOf(quantity.getText());
-        DefaultTableModel model = (DefaultTableModel) addSalesTable.getModel();
-        Vector v = new Vector();
-        v.add(m.getMedicineCode());
-        v.add(m.getMedicineName());
-        v.add(pQuantity);
-        v.add(m.getSalesSellingPrice());
-        tQty += tPrice;
-        quantity.setText(String.valueOf(tQty));
-        v.add((m.getSalesSellingPrice() * pQuantity));
-        tPrice += (m.getSalesSellingPrice() * pQuantity);
-        model.addRow(v);
-        sellingTotalAmount.setText(String.valueOf(tPrice));
-        m = null;
-        quantity.setText(null);
+        String mName = medicineName.getText();
+        Medicine m = new MedicineDao().getByName(mName);
+        System.out.println(m.getMedicineName());
+        if (m.getMedicineName() != null) {
+            System.out.println("null");
+            salesLabel.setText(m.getMedicineCode() + " " + m.getMedicineName() + " " + m.getSalesSellingPrice() + " ");
+            double pQuantity = Double.valueOf(quantity.getText());
+            DefaultTableModel model = (DefaultTableModel) addSalesTable.getModel();
+            Vector v = new Vector();
+            v.add(m.getMedicineCode());
+            v.add(m.getMedicineName());
+            v.add(pQuantity);
+            v.add(m.getSalesSellingPrice());
+            tQty += tPrice;
+            quantity.setText(String.valueOf(tQty));
+            v.add((m.getSalesSellingPrice() * pQuantity));
+            tPrice += (m.getSalesSellingPrice() * pQuantity);
+            model.addRow(v);
+            sellingTotalAmount.setText(String.valueOf(tPrice));
+            m = null;
+            quantity.setText(null);
+        } else {
+            System.out.println("NOT null");
+            JOptionPane.showMessageDialog(rootPane, "NOT Found");
+        }
     }//GEN-LAST:event_btnAddCalculationActionPerformed
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         // TODO add your handling code here:
-        
+        System.err.println(addSalesTable.getRowCount());
         double totalAmount = Double.valueOf(addSalesTable.getValueAt(row, 4).toString());
-        double amoutAfterDeduction = tPrice - totalAmount;
-        sellingTotalAmount.setText(String.valueOf(amoutAfterDeduction));
-        ((DefaultTableModel)addSalesTable.getModel()).removeRow(row);
         System.out.println(totalAmount);
+        double amoutAfterDeduction = Double.valueOf(sellingTotalAmount.getText()) - totalAmount;
+        tPrice = tPrice - totalAmount;
+        sellingTotalAmount.setText(String.valueOf(amoutAfterDeduction));
+
+        if (addSalesTable.getRowCount() == 1) {
+            sellingTotalAmount.setText(String.valueOf(0.00));
+            tPrice = 0.0;
+        }
+        ((DefaultTableModel) addSalesTable.getModel()).removeRow(row);
     }//GEN-LAST:event_removeActionPerformed
-    int row;
+
     private void addSalesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSalesTableMouseClicked
         // TODO add your handling code here:
-         row = addSalesTable.rowAtPoint(evt.getPoint());
+        row = addSalesTable.rowAtPoint(evt.getPoint());
     }//GEN-LAST:event_addSalesTableMouseClicked
 
     private void calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateActionPerformed
@@ -888,11 +902,11 @@ public class SalesApp extends javax.swing.JFrame {
         double totalAmount = Double.valueOf(sellingTotalAmount.getText());
         double discount = Double.valueOf(sellingDiscountPercentage.getText()) / 100;
         double vat = Double.valueOf(sellingVat.getText()) / 100;
-        System.out.println(discount);
-        System.out.println(vat);
+//        System.out.println(discount);
+//        System.out.println(vat);
         totalAmount = totalAmount - (totalAmount * discount);
         totalAmount = totalAmount + (totalAmount * vat);
-       // totalAmount *= vat;
+        // totalAmount *= vat;
         subTotal.setText(String.valueOf(totalAmount));
     }//GEN-LAST:event_calculateActionPerformed
 
