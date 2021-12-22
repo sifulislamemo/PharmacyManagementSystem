@@ -28,18 +28,18 @@ public class SalesApp extends javax.swing.JFrame {
 
     public SalesApp() {
         initComponents();
-        sales = new SalesDao().getAll();
-        for (int i = 0; i < sales.size(); i++) {
-            salesGender.addItem(sales.get(i).getSalesGender());
-        }
+//        sales = new SalesDao().getAll();
+//        for (int i = 0; i < sales.size(); i++) {
+//            salesGender.addItem(sales.get(i).getSalesGender());
+//        }
     }
 
     public SalesApp(Sales s) {
         initComponents();
-        sales = new SalesDao().getAll();
-        for (int i = 0; i < sales.size(); i++) {
-            salesGender.addItem(sales.get(i).getSalesGender());
-        }
+//        sales = new SalesDao().getAll();
+//        for (int i = 0; i < sales.size(); i++) {
+//            salesGender.addItem(sales.get(i).getSalesGender());
+//        }
         addValue(s);
 
     }
@@ -797,6 +797,7 @@ public class SalesApp extends javax.swing.JFrame {
         sales.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
         sales.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
         sales.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
+        
 
         int status = new SalesDao().save(sales);
 

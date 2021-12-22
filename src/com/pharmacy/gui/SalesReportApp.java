@@ -421,6 +421,7 @@ public class SalesReportApp extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         new SalesApp(s).setVisible(true);
+        this.setVisible(false);
 
 
     }//GEN-LAST:event_btnUpdateActionPerformed

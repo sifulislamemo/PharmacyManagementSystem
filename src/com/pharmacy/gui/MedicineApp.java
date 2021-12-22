@@ -48,18 +48,18 @@ public class MedicineApp extends javax.swing.JFrame {
 
     MedicineApp(Medicine s) {
         initComponents();
-        branch = new BranchDao().getAll();
-        company = new CompanyDao().getAll();
-        medicineItem = new MedicineItemDao().getAll();
-        for (int i = 0; i < branch.size(); i++) {
-            branchLocation.addItem(branch.get(i).getBranchLocation());
-        }
-        for (int i = 0; i < company.size(); i++) {
-            companyName.addItem(company.get(i).getCompanyName());
-        }
-        for (int i = 0; i < medicineItem.size(); i++) {
-            medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
-        }
+//        branch = new BranchDao().getAll();
+//        company = new CompanyDao().getAll();
+//        medicineItem = new MedicineItemDao().getAll();
+//        for (int i = 0; i < branch.size(); i++) {
+//            branchLocation.addItem(branch.get(i).getBranchLocation());
+//        }
+//        for (int i = 0; i < company.size(); i++) {
+//            companyName.addItem(company.get(i).getCompanyName());
+//        }
+//        for (int i = 0; i < medicineItem.size(); i++) {
+//            medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
+//        }
         addValue(s);
     }
 
@@ -810,8 +810,8 @@ public class MedicineApp extends javax.swing.JFrame {
 public void clear(){
 medicineCode.setText("");
 medicineName.setText("");
-//medicineManufacturingDate.setDate();
-//medicineExpirationDate.setDate();
+medicineManufacturingDate.setDateFormatString("");
+medicineExpirationDate.setDateFormatString("");
 medicineBatchNo.setText("");
 medicineBuyingPrice.setText("");
 medicineQuantity.setText("");
@@ -820,9 +820,9 @@ medicineVat.setText("");
 medicineTotalAmounnt.setText("");
 medicineSellingPercent.setText("");
 salesSellingPrice.setText("");
-//branchLocation.setSelectedItem("");
-//medicineItemName.setSelectedItem("");
-//companyName.setSelectedItem("");
+branchLocation.setSelectedIndex(0);
+medicineItemName.setSelectedIndex(0);
+companyName.setSelectedIndex(0);
 
 
 }
