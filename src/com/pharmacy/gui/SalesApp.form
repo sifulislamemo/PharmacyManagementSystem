@@ -64,7 +64,7 @@
                       <Component id="salesReportMenu" max="32767" attributes="0"/>
                       <Component id="stockReportMenu" max="32767" attributes="0"/>
                       <Component id="telemedicineMenu" max="32767" attributes="0"/>
-                      <Component id="homeDeliveryMenu" pref="238" max="32767" attributes="0"/>
+                      <Component id="homeDeliveryMenu" pref="234" max="32767" attributes="0"/>
                       <Component id="medicineItemMenu" max="32767" attributes="0"/>
                       <Component id="branchMenu" max="32767" attributes="0"/>
                       <Component id="companyMenu" max="32767" attributes="0"/>
@@ -346,22 +346,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="remove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jPanel7" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                  <Component id="jPanel5" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="78" max="32767" attributes="0"/>
-                          </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jPanel7" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <Component id="jPanel5" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace min="0" pref="78" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
@@ -389,9 +380,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Component id="jPanel7" min="-2" pref="80" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="remove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
@@ -404,7 +393,7 @@
                           <Component id="btnDelete" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="btnClear" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="48" max="32767" attributes="0"/>
+                      <EmptySpace pref="60" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -673,9 +662,9 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="calculate" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="remove" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -686,6 +675,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel25" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="sellingTotalAmount" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="remove" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -712,11 +702,6 @@
                               <Component id="jLabel27" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                               <Component id="sellingDueAmount" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="calculate" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -761,6 +746,9 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="sellingDueAmount">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="sellingDueAmountMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel28">
                   <Properties>
@@ -773,6 +761,9 @@
                 <Component class="javax.swing.JTextField" name="sellingVat">
                 </Component>
                 <Component class="javax.swing.JTextField" name="subTotal">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="subTotalMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel30">
                   <Properties>
@@ -782,13 +773,12 @@
                     <Property name="text" type="java.lang.String" value="Total "/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="calculate">
+                <Component class="javax.swing.JButton" name="remove">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Process"/>
-                    <Property name="actionCommand" type="java.lang.String" value=""/>
+                    <Property name="text" type="java.lang.String" value="Remove"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calculateActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -1011,14 +1001,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="remove">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Remove"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
