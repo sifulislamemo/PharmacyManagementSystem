@@ -698,8 +698,8 @@ public class MedicineApp extends javax.swing.JFrame {
     public void addValue(Medicine s) {
         medicineCode.setText(s.getMedicineCode());
         medicineName.setText(s.getMedicineName());
-    medicineManufacturingDate.setDate(s.getMedicineManufacturingDate());
-    medicineExpirationDate.setDate(s.getMedicineExpirationDate());
+        medicineManufacturingDate.setDate(s.getMedicineManufacturingDate());
+        medicineExpirationDate.setDate(s.getMedicineExpirationDate());
         medicineBatchNo.setText(s.getMedicineBatchNo());
         medicineBuyingPrice.setText(Double.valueOf(s.getMedicineBuyingPrice()).toString());
         medicineQuantity.setText(Double.valueOf(s.getMedicineQuantity()).toString());
@@ -807,27 +807,28 @@ public class MedicineApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_btnClearActionPerformed
-public void clear(){
-medicineCode.setText("");
-medicineName.setText("");
-medicineManufacturingDate.setDateFormatString("");
-medicineExpirationDate.setDateFormatString("");
-medicineBatchNo.setText("");
-medicineBuyingPrice.setText("");
-medicineQuantity.setText("");
-medicineDiscount.setText("");
-medicineVat.setText("");
-medicineTotalAmounnt.setText("");
-medicineSellingPercent.setText("");
-salesSellingPrice.setText("");
-branchLocation.setSelectedIndex(0);
-medicineItemName.setSelectedIndex(0);
-companyName.setSelectedIndex(0);
+    public void clear() {
+        medicineCode.setText("");
+        medicineName.setText("");
+        medicineManufacturingDate.setDateFormatString("");
+        medicineExpirationDate.setDateFormatString("");
+        medicineBatchNo.setText("");
+        medicineBuyingPrice.setText("");
+        medicineQuantity.setText("");
+        medicineDiscount.setText("");
+        medicineVat.setText("");
+        medicineTotalAmounnt.setText("");
+        medicineSellingPercent.setText("");
+        salesSellingPrice.setText("");
+        branchLocation.setSelectedIndex(0);
+        medicineItemName.setSelectedIndex(0);
+        companyName.setSelectedIndex(0);
 
+    }
 
-}
     public void totalBuyingAmount() {
         String buyPrice = medicineBuyingPrice.getText();
+
         double bprice = Double.parseDouble(buyPrice);
         String buyQty = medicineQuantity.getText();
         double bQty = Double.parseDouble(buyQty);
@@ -839,7 +840,8 @@ companyName.setSelectedIndex(0);
         double buyAfterDiscount = totalAmount * (bDiscount / 100);
         totalAmount = totalAmount - buyAfterDiscount;
         double buyAfterVat = totalAmount * (bVat / 100);
-        totalAmount = totalAmount + buyAfterVat;
+//        totalAmount = totalAmount + buyAfterVat;
+        totalAmount = Math.round(totalAmount + buyAfterVat);
         String totalBuy = String.valueOf(totalAmount);
         medicineTotalAmounnt.setText(totalBuy);
 
@@ -853,9 +855,9 @@ companyName.setSelectedIndex(0);
         double tPrice = Double.parseDouble(totalPrice);
         String buyQty = medicineQuantity.getText();
         double bQty = Double.parseDouble(buyQty);
-        double perSales = tPrice/bQty;
+        double perSales = tPrice / bQty;
         double sellPercent = perSales * (sPercent / 100);
-        perSales = perSales + sellPercent;
+        perSales = Math.round(perSales + sellPercent);
         String totalSell = String.valueOf(perSales);
         salesSellingPrice.setText(totalSell);
 

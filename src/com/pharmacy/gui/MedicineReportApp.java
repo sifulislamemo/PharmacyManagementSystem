@@ -462,17 +462,15 @@ public class MedicineReportApp extends javax.swing.JFrame {
         s = new Medicine();
         s.setMedicineCode(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 0).toString());
         s.setMedicineName(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 1).toString());
-//                s.setMedicineManufacturingDate(Date.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 2).toString()));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
-
+        
         try {
             date = sdf.parse(medicineReportTable.getValueAt(row, 2).toString());
         } catch (ParseException ex) {
             Logger.getLogger(MedicineReportApp.class.getName()).log(Level.SEVERE, null, ex);
         }
         s.setMedicineManufacturingDate(date);
-//        s.setMedicineExpirationDate(Date.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 3).toString()));
         SimpleDateFormat sdfE = new SimpleDateFormat("yyyy-MM-dd");
         Date dateE = null;
 
