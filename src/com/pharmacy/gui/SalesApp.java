@@ -7,10 +7,12 @@ package com.pharmacy.gui;
 
 import com.pharmacy.dao.MedicineDao;
 import com.pharmacy.dao.SalesDao;
+import com.pharmacy.model.Invoice;
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.Sales;
 import com.pharmacy.model.SalesTable;
 import java.util.List;
+import java.util.Random;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -26,9 +28,8 @@ public class SalesApp extends javax.swing.JFrame {
      * Creates new form Main
      */
     List<Sales> sales;
-   
+//    List <Invoice> invoice;
     
-
     public SalesApp() {
         initComponents();
 //        sales = new SalesDao().getAll();
@@ -102,7 +103,7 @@ public class SalesApp extends javax.swing.JFrame {
         quantity = new javax.swing.JTextField();
         salesLabel = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        btnSalesTable = new javax.swing.JButton();
+        btnPayment = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         salesCode = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
@@ -115,7 +116,7 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         salesDate = new com.toedter.calendar.JDateChooser();
         jLabel29 = new javax.swing.JLabel();
-        paymentType = new javax.swing.JComboBox<>();
+        paymentType = new javax.swing.JComboBox<String>();
         jLabel17 = new javax.swing.JLabel();
         salesAddress = new javax.swing.JTextField();
 
@@ -473,17 +474,23 @@ public class SalesApp extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnSalesTable.setBackground(new java.awt.Color(0, 0, 0));
-        btnSalesTable.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnSalesTable.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalesTable.setText("Sales Table");
-        btnSalesTable.addActionListener(new java.awt.event.ActionListener() {
+        btnPayment.setBackground(new java.awt.Color(0, 0, 0));
+        btnPayment.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnPayment.setForeground(new java.awt.Color(255, 255, 255));
+        btnPayment.setText("Payment ");
+        btnPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalesTableActionPerformed(evt);
+                btnPaymentActionPerformed(evt);
             }
         });
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        salesCode.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesCodeMouseClicked(evt);
+            }
+        });
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel21.setText("Name");
@@ -505,7 +512,7 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setText("Payment Type");
 
-        paymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "bKash", "Nagod", " " }));
+        paymentType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "bKash", "Nagod", " " }));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Address");
@@ -588,7 +595,7 @@ public class SalesApp extends javax.swing.JFrame {
                         .addGap(44, 44, 44)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnSalesTable))
+                        .addComponent(btnPayment))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,7 +627,7 @@ public class SalesApp extends javax.swing.JFrame {
                     .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalesTable, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(91, Short.MAX_VALUE))
         );
 
@@ -804,7 +811,6 @@ public class SalesApp extends javax.swing.JFrame {
         sales.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
         sales.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
         sales.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
-        
 
         int status = new SalesDao().save(sales);
 
@@ -871,7 +877,23 @@ public class SalesApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "NOT Found");
         }
     }//GEN-LAST:event_btnAddCalculationActionPerformed
+    private void tableDataGet(String invoiceCode) {
+//        for (int i = 0; i < addSalesTable.getRowCount(); i++) {
+//            Sales s = new Sales();
+           
+//            s.setSalesCode(addSalesTable.getValueAt(i, 0).toString());
+//            s.setMedicineName(addSalesTable.getValueAt(i, 1).toString());
+//            s.set(addSalesTable.getValueAt(i, 1).toString());
+//            addSalesTable.getValueAt(i, 0).toString();
+//            addSalesTable.getValueAt(i, 1).toString();
+//            addSalesTable.getValueAt(i, 2).toString();
+//            addSalesTable.getValueAt(i, 3).toString();
+//            addSalesTable.getValueAt(i, 4).toString();
+//            invoice.add(s);
+//        }
 
+
+    }
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         // TODO add your handling code here:
         System.err.println(addSalesTable.getRowCount());
@@ -892,8 +914,8 @@ public class SalesApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         row = addSalesTable.rowAtPoint(evt.getPoint());
     }//GEN-LAST:event_addSalesTableMouseClicked
-    public void subTotalCalculate(){
-     double totalAmount = Double.valueOf(sellingTotalAmount.getText());
+    public void subTotalCalculate() {
+        double totalAmount = Double.valueOf(sellingTotalAmount.getText());
         double discount = Double.valueOf(sellingDiscountPercentage.getText()) / 100;
         double vat = Double.valueOf(sellingVat.getText()) / 100;
 //        System.out.println(discount);
@@ -913,17 +935,30 @@ public class SalesApp extends javax.swing.JFrame {
         subTotalCalculate();
     }//GEN-LAST:event_subTotalMouseClicked
 
-    private void btnSalesTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalesTableActionPerformed
+    private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
         // TODO add your handling code here:
-      
-    }//GEN-LAST:event_btnSalesTableActionPerformed
-    public void dueAmountCalculate(){
-    double total = Double.valueOf(subTotal.getText());
-    double paid = Double.valueOf(sellingPaidAmount.getText());
-    total = Math.round(total - paid);
-    sellingDueAmount.setText(String.valueOf(total));
-    
+        new InvoiceApp().setVisible(true);
+//        tableDataGet();
+        
+
+    }//GEN-LAST:event_btnPaymentActionPerformed
+
+    private void salesCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesCodeMouseClicked
+        // TODO add your handling code here:
+        Random random = new Random();
+        int n = random.nextInt(10000) + 1;
+        String val = String.valueOf(n);
+        salesCode.setText(val);
+
+    }//GEN-LAST:event_salesCodeMouseClicked
+    public void dueAmountCalculate() {
+        double total = Double.valueOf(subTotal.getText());
+        double paid = Double.valueOf(sellingPaidAmount.getText());
+        total = Math.round(total - paid);
+        sellingDueAmount.setText(String.valueOf(total));
+
     }
+
     /**
      * @param args the command line arguments
      */
@@ -969,7 +1004,7 @@ public class SalesApp extends javax.swing.JFrame {
     private javax.swing.JButton btnAddCalculation;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnSalesTable;
+    private javax.swing.JButton btnPayment;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;
     private com.toedter.calendar.demo.DateChooserPanelBeanInfo dateChooserPanelBeanInfo1;

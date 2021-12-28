@@ -5,21 +5,27 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.model.Sales;
+import java.util.List;
+
 /**
  *
  * @author USER
  */
-public class Invoice extends javax.swing.JFrame {
+public class InvoiceApp extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public Invoice() {
+    List <Sales> sales;
+    public InvoiceApp() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     
-      public Invoice(String invoiceCode) {
+      public InvoiceApp(String invoiceCode) {
         initComponents();
+//        sales.;
     }
 
     /**
@@ -54,7 +60,7 @@ public class Invoice extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jTextField13 = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblInvoice = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
@@ -83,7 +89,6 @@ public class Invoice extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(705, 819));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -222,7 +227,7 @@ public class Invoice extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblInvoice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -233,7 +238,7 @@ public class Invoice extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPane5.setViewportView(tblInvoice);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -388,21 +393,23 @@ public class Invoice extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InvoiceApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InvoiceApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InvoiceApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Invoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InvoiceApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Invoice().setVisible(true);
+                new InvoiceApp().setVisible(true);
             }
         });
     }
@@ -433,7 +440,6 @@ public class Invoice extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
@@ -445,5 +451,6 @@ public class Invoice extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tblInvoice;
     // End of variables declaration//GEN-END:variables
 }

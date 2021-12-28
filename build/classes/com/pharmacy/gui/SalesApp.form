@@ -355,7 +355,7 @@
                               <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               <Component id="btnClear" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnSalesTable" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPayment" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -396,7 +396,7 @@
                           <Component id="btnUpdate" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="btnDelete" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="btnClear" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="btnSalesTable" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="btnPayment" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="91" max="32767" attributes="0"/>
                   </Group>
@@ -818,7 +818,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="btnSalesTable">
+            <Component class="javax.swing.JButton" name="btnPayment">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -829,10 +829,10 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Sales Table"/>
+                <Property name="text" type="java.lang.String" value="Payment "/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalesTableActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaymentActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel4">
@@ -919,6 +919,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="salesCode">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="salesCodeMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel21">
                   <Properties>
