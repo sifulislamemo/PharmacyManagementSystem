@@ -226,13 +226,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel7" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel8" pref="42" max="32767" attributes="0"/>
+                          <Component id="jLabel8" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jTextField4" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
                           <Component id="jTextField3" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
+                          <Component id="customerName" alignment="1" min="-2" pref="122" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
@@ -249,7 +249,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="customerName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -272,7 +272,7 @@
                 <Property name="text" type="java.lang.String" value="Name"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="customerName">
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField3">
             </Component>
@@ -334,7 +334,7 @@
                           <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="7" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField13" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -417,7 +417,7 @@
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel12" pref="71" max="32767" attributes="0"/>
+                                  <Component id="jLabel12" pref="0" max="32767" attributes="0"/>
                                   <Component id="jLabel13" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>

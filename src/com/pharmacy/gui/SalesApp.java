@@ -29,7 +29,10 @@ public class SalesApp extends javax.swing.JFrame {
      */
     List<Sales> sales;
 //    List <Invoice> invoice;
-    
+    String cName;
+    String cMobile;
+    String cAddress;
+    double cDicount;
     public SalesApp() {
         initComponents();
 //        sales = new SalesDao().getAll();
@@ -38,12 +41,15 @@ public class SalesApp extends javax.swing.JFrame {
 //        }
     }
 
-    public SalesApp(Sales s) {
+     SalesApp(Sales s) {
         initComponents();
 //        sales = new SalesDao().getAll();
 //        for (int i = 0; i < sales.size(); i++) {
 //            salesGender.addItem(sales.get(i).getSalesGender());
 //        }
+        cName += salesName.getText();
+        System.out.println(cName);
+//        String cusDiscount = Double.parseDouble();
         addValue(s);
 
     }
@@ -877,7 +883,7 @@ public class SalesApp extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "NOT Found");
         }
     }//GEN-LAST:event_btnAddCalculationActionPerformed
-    private void tableDataGet(String invoiceCode) {
+    private void tableDataGet() {
 //        for (int i = 0; i < addSalesTable.getRowCount(); i++) {
 //            Sales s = new Sales();
            
@@ -889,9 +895,9 @@ public class SalesApp extends javax.swing.JFrame {
 //            addSalesTable.getValueAt(i, 2).toString();
 //            addSalesTable.getValueAt(i, 3).toString();
 //            addSalesTable.getValueAt(i, 4).toString();
-//            invoice.add(s);
+////            invoice.add(s);
+//            System.out.println(addSalesTable.getValueAt(i, 0).toString());
 //        }
-
 
     }
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
@@ -937,7 +943,7 @@ public class SalesApp extends javax.swing.JFrame {
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
         // TODO add your handling code here:
-        new InvoiceApp().setVisible(true);
+        new InvoiceApp(this).setVisible(true);
 //        tableDataGet();
         
 
