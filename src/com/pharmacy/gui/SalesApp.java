@@ -11,7 +11,9 @@ import com.pharmacy.model.Invoice;
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.Sales;
 import com.pharmacy.model.SalesTable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Vector;
 import javax.swing.JComboBox;
@@ -33,6 +35,7 @@ public class SalesApp extends javax.swing.JFrame {
     String cMobile;
     String cAddress;
     double cDicount;
+
     public SalesApp() {
         initComponents();
 //        sales = new SalesDao().getAll();
@@ -41,17 +44,23 @@ public class SalesApp extends javax.swing.JFrame {
 //        }
     }
 
-     SalesApp(Sales s) {
+    SalesApp(Sales s) {
         initComponents();
 //        sales = new SalesDao().getAll();
 //        for (int i = 0; i < sales.size(); i++) {
 //            salesGender.addItem(sales.get(i).getSalesGender());
 //        }
-        cName += salesName.getText();
-        System.out.println(cName);
+//sales.setSalesCode(salesCode.getText());
+//       getInvoice();
+
 //        String cusDiscount = Double.parseDouble();
         addValue(s);
 
+    }
+
+    public void getInvoice() {
+        cName = salesName.getText();
+        System.out.println(cName + " sales");
     }
 
     /**
@@ -886,7 +895,7 @@ public class SalesApp extends javax.swing.JFrame {
     private void tableDataGet() {
 //        for (int i = 0; i < addSalesTable.getRowCount(); i++) {
 //            Sales s = new Sales();
-           
+
 //            s.setSalesCode(addSalesTable.getValueAt(i, 0).toString());
 //            s.setMedicineName(addSalesTable.getValueAt(i, 1).toString());
 //            s.set(addSalesTable.getValueAt(i, 1).toString());
@@ -898,7 +907,6 @@ public class SalesApp extends javax.swing.JFrame {
 ////            invoice.add(s);
 //            System.out.println(addSalesTable.getValueAt(i, 0).toString());
 //        }
-
     }
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         // TODO add your handling code here:
@@ -943,16 +951,32 @@ public class SalesApp extends javax.swing.JFrame {
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
         // TODO add your handling code here:
-        new InvoiceApp(this).setVisible(true);
+//        new InvoiceApp(this).setVisible(true);
 //        tableDataGet();
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("salesName", salesName.getText());
+        map.put("salesContact", salesContact.getText());
+        map.put("salesAddress", salesAddress.getText());
+        map.put("sellingTotalAmount", sellingTotalAmount.getText());
+        map.put("sellingDiscountPercentage", sellingDiscountPercentage.getText());
+        map.put("sellingVat", sellingVat.getText());
+        map.put("subTotal", subTotal.getText());
+        map.put("sellingPaidAmount", sellingPaidAmount.getText());
+        map.put("sellingDueAmount", sellingDueAmount.getText());
         
+        map.put("table", addSalesTable.getModel());
+        
+        
+        new InvoiceApp(map).setVisible(true);
+
 
     }//GEN-LAST:event_btnPaymentActionPerformed
 
     private void salesCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesCodeMouseClicked
         // TODO add your handling code here:
         Random random = new Random();
-        int n = random.nextInt(10000) + 1;
+        int n = random.nextInt(1000) + 1;
         String val = String.valueOf(n);
         salesCode.setText(val);
 
