@@ -11,6 +11,8 @@ import com.pharmacy.model.Invoice;
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.Sales;
 import com.pharmacy.model.SalesTable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,38 +32,22 @@ public class SalesApp extends javax.swing.JFrame {
      * Creates new form Main
      */
     List<Sales> sales;
-//    List <Invoice> invoice;
-    String cName;
-    String cMobile;
-    String cAddress;
-    double cDicount;
+
+   
 
     public SalesApp() {
         initComponents();
-//        sales = new SalesDao().getAll();
-//        for (int i = 0; i < sales.size(); i++) {
-//            salesGender.addItem(sales.get(i).getSalesGender());
-//        }
+        showDate();
     }
 
     SalesApp(Sales s) {
         initComponents();
-//        sales = new SalesDao().getAll();
-//        for (int i = 0; i < sales.size(); i++) {
-//            salesGender.addItem(sales.get(i).getSalesGender());
-//        }
-//sales.setSalesCode(salesCode.getText());
-//       getInvoice();
 
-//        String cusDiscount = Double.parseDouble();
         addValue(s);
 
     }
 
-    public void getInvoice() {
-        cName = salesName.getText();
-        System.out.println(cName + " sales");
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,11 +115,11 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         salesGender = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
-        salesDate = new com.toedter.calendar.JDateChooser();
         jLabel29 = new javax.swing.JLabel();
-        paymentType = new javax.swing.JComboBox<String>();
+        paymentType = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         salesAddress = new javax.swing.JTextField();
+        salesDate = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -527,10 +513,16 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setText("Payment Type");
 
-        paymentType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "bKash", "Nagod", " " }));
+        paymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "bKash", "Nagod", " " }));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Address");
+
+        salesDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesDateMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -550,9 +542,9 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(salesAddress)
-                        .addComponent(salesDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(paymentType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(salesGender, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(salesGender, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(salesDate))
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(salesCode, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                         .addComponent(salesContact)
@@ -578,11 +570,14 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salesGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addComponent(salesDate, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel16))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(salesDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paymentType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
@@ -793,7 +788,7 @@ public class SalesApp extends javax.swing.JFrame {
                 salesGender.setSelectedItem(g);
             }
         }
-        salesDate.setDate(s.getSalesDate());
+//        salesDate.setDate(s.getSalesDate());
 
         String p = s.getPaymentType();
         sales = new SalesDao().getAll();
@@ -818,7 +813,7 @@ public class SalesApp extends javax.swing.JFrame {
         sales.setSalesContact(salesContact.getText());
         sales.setSalesAddress(salesAddress.getText());
         sales.setSalesGender(salesGender.getSelectedItem().toString());
-        sales.setSalesDate(salesDate.getDate());
+//        sales.setSalesDate(salesDate.getDate());
         sales.setMedicineName(medicineName.getText());
         sales.setPaymentType(paymentType.getSelectedItem().toString());
         sales.setSellingDiscountPercentage(Double.valueOf(sellingDiscountPercentage.getText()));
@@ -844,7 +839,7 @@ public class SalesApp extends javax.swing.JFrame {
         sales.setSalesContact(salesContact.getText());
         sales.setSalesAddress(salesAddress.getText());
         sales.setSalesGender(salesGender.getSelectedItem().toString());
-        sales.setSalesDate(salesDate.getDate());
+//        sales.setSalesDate(salesDate.getDate());
         sales.setMedicineName(medicineName.getText());
         sales.setPaymentType(paymentType.getSelectedItem().toString());
         sales.setSellingDiscountPercentage(Double.valueOf(sellingDiscountPercentage.getText()));
@@ -948,16 +943,22 @@ public class SalesApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         subTotalCalculate();
     }//GEN-LAST:event_subTotalMouseClicked
+    private void showDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        Date date = new Date();
+        salesDate.setText(formatter.format(date));
+    }
 
     private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
         // TODO add your handling code here:
-//        new InvoiceApp(this).setVisible(true);
-//        tableDataGet();
-
         Map<String, Object> map = new HashMap<String, Object>();
+        map.put("salesCode", salesCode.getText());
         map.put("salesName", salesName.getText());
         map.put("salesContact", salesContact.getText());
         map.put("salesAddress", salesAddress.getText());
+        map.put("salesGender", salesGender.getSelectedItem());
+        map.put("paymentType", paymentType.getSelectedItem());
+        map.put("salesDate", salesDate.getText());
         map.put("sellingTotalAmount", sellingTotalAmount.getText());
         map.put("sellingDiscountPercentage", sellingDiscountPercentage.getText());
         map.put("sellingVat", sellingVat.getText());
@@ -981,6 +982,10 @@ public class SalesApp extends javax.swing.JFrame {
         salesCode.setText(val);
 
     }//GEN-LAST:event_salesCodeMouseClicked
+
+    private void salesDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesDateMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salesDateMouseClicked
     public void dueAmountCalculate() {
         double total = Double.valueOf(subTotal.getText());
         double paid = Double.valueOf(sellingPaidAmount.getText());
@@ -1076,7 +1081,7 @@ public class SalesApp extends javax.swing.JFrame {
     private javax.swing.JTextField salesAddress;
     private javax.swing.JTextField salesCode;
     private javax.swing.JTextField salesContact;
-    private com.toedter.calendar.JDateChooser salesDate;
+    private javax.swing.JTextField salesDate;
     private javax.swing.JComboBox salesGender;
     private javax.swing.JLabel salesLabel;
     private javax.swing.JButton salesMenu;
