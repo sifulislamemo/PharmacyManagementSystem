@@ -937,7 +937,7 @@ public class SalesApp extends javax.swing.JFrame {
         totalAmount = totalAmount - (totalAmount * discount);
         totalAmount = totalAmount + (totalAmount * vat);
         // totalAmount *= vat;
-        subTotal.setText(String.valueOf(totalAmount));
+        subTotal.setText(String.valueOf(Math.round(totalAmount)));
     }
     private void sellingDueAmountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sellingDueAmountMouseClicked
         // TODO add your handling code here:
