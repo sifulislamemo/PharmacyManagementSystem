@@ -30,8 +30,7 @@ public class InvoiceApp extends javax.swing.JFrame {
 //    List <Sales> sales;
     public InvoiceApp() {
         initComponents();
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     InvoiceApp(String s) {
@@ -478,17 +477,11 @@ public class InvoiceApp extends javax.swing.JFrame {
                  if(pageNum > 0){
                     return Printable.NO_SUCH_PAGE;
                 }
-                
                 Graphics2D g2 = (Graphics2D)pg;
                 g2.translate(pf.getImageableX(), pf.getImageableY());
-                g2.scale(0.47,0.47);
-                
+                g2.scale(0.60,0.60);
                 jPanel1.print(g2);
-         
-               
-                return Printable.PAGE_EXISTS;
-                         
-                
+                return Printable.PAGE_EXISTS;   
             }
     });
             boolean ok = job.printDialog();

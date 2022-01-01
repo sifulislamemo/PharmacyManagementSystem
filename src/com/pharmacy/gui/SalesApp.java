@@ -38,13 +38,23 @@ public class SalesApp extends javax.swing.JFrame {
     public SalesApp() {
         initComponents();
         showDate();
+        getInvoiceNo();
     }
 
     SalesApp(Sales s) {
         initComponents();
 
         addValue(s);
+       getInvoiceNo();
 
+    }
+    
+    public int getInvoiceNo(){
+        Random random = new Random();
+        int n = random.nextInt(1000) + 1;
+        String val = String.valueOf(n);
+        salesCode.setText(val);
+        return n;
     }
 
    
@@ -120,6 +130,7 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         salesAddress = new javax.swing.JTextField();
         salesDate = new javax.swing.JTextField();
+        processPayment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -487,6 +498,7 @@ public class SalesApp extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
+        salesCode.setEditable(false);
         salesCode.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 salesCodeMouseClicked(evt);
@@ -588,6 +600,14 @@ public class SalesApp extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        processPayment.setBackground(new java.awt.Color(255, 0, 0));
+        processPayment.setText("PAY NOW");
+        processPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                processPaymentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -613,7 +633,9 @@ public class SalesApp extends javax.swing.JFrame {
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -631,6 +653,8 @@ public class SalesApp extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -638,7 +662,7 @@ public class SalesApp extends javax.swing.JFrame {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -856,7 +880,7 @@ public class SalesApp extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
     Medicine mm;
-    double tQty;
+    int tQty;
     double tPrice;
     int row;
     private void btnAddCalculationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCalculationActionPerformed
@@ -867,7 +891,7 @@ public class SalesApp extends javax.swing.JFrame {
         if (m.getMedicineName() != null) {
             System.out.println("null");
             salesLabel.setText(m.getMedicineCode() + " " + m.getMedicineName() + " " + m.getSalesSellingPrice() + " ");
-            double pQuantity = Double.valueOf(quantity.getText());
+            int pQuantity = Integer.valueOf(quantity.getText());
             DefaultTableModel model = (DefaultTableModel) addSalesTable.getModel();
             Vector v = new Vector();
             v.add(m.getMedicineCode());
@@ -976,16 +1000,35 @@ public class SalesApp extends javax.swing.JFrame {
 
     private void salesCodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesCodeMouseClicked
         // TODO add your handling code here:
-        Random random = new Random();
-        int n = random.nextInt(1000) + 1;
-        String val = String.valueOf(n);
-        salesCode.setText(val);
+        
 
     }//GEN-LAST:event_salesCodeMouseClicked
 
     private void salesDateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesDateMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_salesDateMouseClicked
+
+    private void processPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processPaymentActionPerformed
+        // TODO add your handling code here:
+        int logOut = JOptionPane.showConfirmDialog(null, "Do you want to Pay?", "Select", JOptionPane.YES_NO_OPTION);
+        if (logOut == 0) {
+            
+            int rowCount = addSalesTable.getRowCount();
+            for (int i = 0; i < rowCount; i++) {
+                System.out.println(addSalesTable.getValueAt(i, 0).toString());
+                System.out.println(addSalesTable.getValueAt(i, 2).toString());
+                Medicine medicine = new Medicine();
+                medicine.setMedicineCode(addSalesTable.getValueAt(i, 0).toString());
+                medicine.setMedicineQuantity(Integer.valueOf(addSalesTable.getValueAt(i, 2).toString()));
+                new MedicineDao().updateStock(medicine, salesCode.getText());
+            }
+            
+
+            
+        }
+        
+        
+    }//GEN-LAST:event_processPaymentActionPerformed
     public void dueAmountCalculate() {
         double total = Double.valueOf(subTotal.getText());
         double paid = Double.valueOf(sellingPaidAmount.getText());
@@ -1076,6 +1119,7 @@ public class SalesApp extends javax.swing.JFrame {
     private javax.swing.JTextField medicineName;
     private javax.swing.JButton medicineReportMenu;
     private javax.swing.JComboBox<String> paymentType;
+    private javax.swing.JButton processPayment;
     private javax.swing.JTextField quantity;
     private javax.swing.JButton remove;
     private javax.swing.JTextField salesAddress;

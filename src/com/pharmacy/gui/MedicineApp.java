@@ -48,18 +48,6 @@ public class MedicineApp extends javax.swing.JFrame {
 
     MedicineApp(Medicine s) {
         initComponents();
-//        branch = new BranchDao().getAll();
-//        company = new CompanyDao().getAll();
-//        medicineItem = new MedicineItemDao().getAll();
-//        for (int i = 0; i < branch.size(); i++) {
-//            branchLocation.addItem(branch.get(i).getBranchLocation());
-//        }
-//        for (int i = 0; i < company.size(); i++) {
-//            companyName.addItem(company.get(i).getCompanyName());
-//        }
-//        for (int i = 0; i < medicineItem.size(); i++) {
-//            medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
-//        }
         addValue(s);
     }
 
@@ -744,7 +732,7 @@ public class MedicineApp extends javax.swing.JFrame {
         medicine.setMedicineExpirationDate(medicineExpirationDate.getDate());
         medicine.setMedicineBatchNo(medicineBatchNo.getText());
         medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
-        medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
+        medicine.setMedicineQuantity(Integer.valueOf(medicineQuantity.getText()));
         medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
         medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
         medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
@@ -772,7 +760,7 @@ public class MedicineApp extends javax.swing.JFrame {
         medicine.setMedicineExpirationDate(medicineExpirationDate.getDate());
         medicine.setMedicineBatchNo(medicineBatchNo.getText());
         medicine.setMedicineBuyingPrice(Double.valueOf(medicineBuyingPrice.getText()));
-        medicine.setMedicineQuantity(Double.valueOf(medicineQuantity.getText()));
+        medicine.setMedicineQuantity(Integer.valueOf(medicineQuantity.getText()));
         medicine.setMedicineDiscount(Double.valueOf(medicineDiscount.getText()));
         medicine.setMedicineVat(Double.valueOf(medicineVat.getText()));
         medicine.setMedicineTotalAmounnt(Double.valueOf(medicineTotalAmounnt.getText()));
@@ -840,7 +828,6 @@ public class MedicineApp extends javax.swing.JFrame {
         double buyAfterDiscount = totalAmount * (bDiscount / 100);
         totalAmount = totalAmount - buyAfterDiscount;
         double buyAfterVat = totalAmount * (bVat / 100);
-//        totalAmount = totalAmount + buyAfterVat;
         totalAmount = Math.round(totalAmount + buyAfterVat);
         String totalBuy = String.valueOf(totalAmount);
         medicineTotalAmounnt.setText(totalBuy);

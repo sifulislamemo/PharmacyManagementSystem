@@ -19,7 +19,7 @@ public class Medicine {
     private Date medicineExpirationDate;
     private String medicineBatchNo;
     private double medicineBuyingPrice;
-    private double medicineQuantity;
+    private int medicineQuantity;
     private double medicineDiscount;
     private double medicineVat;
     private double medicineTotalAmounnt;
@@ -88,13 +88,7 @@ public class Medicine {
         this.medicineBuyingPrice = medicineBuyingPrice;
     }
 
-    public double getMedicineQuantity() {
-        return medicineQuantity;
-    }
-
-    public void setMedicineQuantity(double medicineQuantity) {
-        this.medicineQuantity = medicineQuantity;
-    }
+  
 
     public double getMedicineDiscount() {
         return medicineDiscount;
@@ -159,6 +153,14 @@ public class Medicine {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public int getMedicineQuantity() {
+        return medicineQuantity;
+    }
+
+    public void setMedicineQuantity(int medicineQuantity) {
+        this.medicineQuantity = medicineQuantity;
     }
 
     

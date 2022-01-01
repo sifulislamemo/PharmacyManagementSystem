@@ -482,7 +482,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
         s.setMedicineExpirationDate(dateE);
         s.setMedicineBatchNo(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 4).toString());
         s.setMedicineBuyingPrice(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 5).toString()));
-        s.setMedicineQuantity(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 6).toString()));
+        s.setMedicineQuantity(Integer.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 6).toString()));
         s.setMedicineDiscount(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 7).toString()));
         s.setMedicineVat(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 8).toString()));
         s.setMedicineTotalAmounnt(Double.valueOf(medicineReportTable.getValueAt(medicineReportTable.getSelectedRow(), 9).toString()));
