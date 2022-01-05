@@ -11,9 +11,10 @@ public class Sales {
    private String salesContact;
    private String salesAddress;
    private String salesGender;
-   private Date salesDate;
+   private String salesDate;
    private String medicineName;
    private String paymentType;
+   private String status;
    private double sellingPrice;
    private double sellingQuantity;
    private double sellingDiscountPercentage;
@@ -40,6 +41,14 @@ public class Sales {
 
     public String getSalesName() {
         return salesName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setSalesName(String salesName) {
@@ -70,13 +79,15 @@ public class Sales {
         this.salesGender = salesGender;
     }
 
-    public Date getSalesDate() {
+    public String getSalesDate() {
         return salesDate;
     }
 
-    public void setSalesDate(Date salesDate) {
+    public void setSalesDate(String salesDate) {
         this.salesDate = salesDate;
     }
+
+  
 
     public String getMedicineName() {
         return medicineName;

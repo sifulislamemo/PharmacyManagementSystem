@@ -63,9 +63,7 @@ public class SalesReportApp extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         salesReportTable = new javax.swing.JTable();
-        btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -253,7 +251,7 @@ public class SalesReportApp extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(442, 442, 442)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(391, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,23 +278,13 @@ public class SalesReportApp extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(salesReportTable);
 
-        btnClear.setBackground(new java.awt.Color(0, 0, 0));
-        btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear.setText("CLEAR");
-
         btnDelete.setBackground(new java.awt.Color(0, 0, 0));
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
-
-        btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
-        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -307,13 +295,9 @@ public class SalesReportApp extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(313, 313, 313)
-                .addComponent(btnUpdate)
-                .addGap(40, 40, 40)
+                .addGap(442, 442, 442)
                 .addComponent(btnDelete)
-                .addGap(49, 49, 49)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(342, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,10 +306,7 @@ public class SalesReportApp extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -418,56 +399,70 @@ public class SalesReportApp extends javax.swing.JFrame {
 
     }//GEN-LAST:event_medicineMenuActionPerformed
     Sales s;
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-        new SalesApp(s).setVisible(true);
-        this.setVisible(false);
-
-
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void salesReportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesReportTableMouseClicked
         // TODO add your handling code here:
         int row = salesReportTable.rowAtPoint(evt.getPoint());
         s = new Sales();
-        s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-        s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
-        s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
-        s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
-        s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = sdf.parse(salesReportTable.getValueAt(row, 6).toString());
-        } catch (ParseException ex) {
-            Logger.getLogger(SalesReportApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 0).toString());
+        s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+        s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
+        s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
+        s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Date date = null;
+//        try {
+//            date = sdf.parse(salesReportTable.getValueAt(row, 6).toString());
+//        } catch (ParseException ex) {
+//            Logger.getLogger(SalesReportApp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
-        s.setSalesDate(date);
-        s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
-        s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
-        s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
-        s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
-        s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
-        s.setSellingVat(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 12).toString()));
-        s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 13).toString()));
-        s.setSellingPaidAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 14).toString()));
-        s.setSellingDueAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 15).toString()));
+        s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
+//        s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
+        s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString());
+//        s.setStatus(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
+//        s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
+//        s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
+//        s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
+//        s.setSellingVat(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 12).toString()));
+        s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString()));
+        
+//        s.setSellingPaidAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 14).toString()));
+//        s.setSellingDueAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 15).toString()));
 
 
     }//GEN-LAST:event_salesReportTableMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        Sales sales = new Sales();
+        int option = JOptionPane.showConfirmDialog(rootPane, "Do you want to delete?", null, WIDTH);
+        if (option == 0) {
+            sales.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 0).toString());
+            int status = new SalesDao().delete(sales);
+            if (status > 0) {
+                JOptionPane.showMessageDialog(rootPane, "Sales delete!");
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Sales Not delete!");
+            }
+        }
+        getAllSalesReport();
+    }//GEN-LAST:event_btnDeleteActionPerformed
     private void getAllSalesReport() {
         // TODO add your handling code here:
 //
         List<Sales> m = new SalesDao().getAll();
 //        Sales sales = new Sales();
+//        String[] columnNames = {"id", "sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date", "medicine_name", "sales_payment_type", "sales_price", "sales_quantity", "sales_discount_percentage", "sales_vat", "sales_total_amount", "sales_paid_amount", "sales__due_amount"};
 
-        String[] columnNames = {"id", "sales_code", "sales_name", "sales_contact", "sales_address", "sales_gender", "sales_date", "medicine_name", "sales_payment_type", "sales_price", "sales_quantity", "sales_discount_percentage", "sales_vat", "sales_total_amount", "sales_paid_amount", "sales__due_amount"};
-        Object[][] data = new Object[m.size()][16];
+        String[] columnNames = {"Invoice#", "Name", "Contact", "Address", "Gender", "Time&Date", "Payment Type", "Total Amount", "Status"};
+        Object[][] data = new Object[m.size()][9];
         for (int i = 0; i < m.size(); i++) {
             Sales s = m.get(i);
-            Object[] o = {s.getId(), s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getMedicineName(), s.getPaymentType(), s.getSellingPrice(), s.getSellingQuantity(), s.getSellingDiscountPercentage(), s.getSellingVat(), s.getSellingTotalAmount(), s.getSellingPaidAmount(), s.getSellingDueAmount(),};
-            for (int j = 0; j < 16; j++) {
+            Object[] o = {s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getPaymentType(),  s.getSellingTotalAmount(), s.getStatus()};
+//                        Object[] o = {s.getId(), s.getSalesCode(), s.getSalesName(), s.getSalesContact(), s.getSalesAddress(), s.getSalesGender(), s.getSalesDate(), s.getMedicineName(), s.getPaymentType(), s.getSellingPrice(), s.getSellingQuantity(), s.getSellingDiscountPercentage(), s.getSellingVat(), s.getSellingTotalAmount(), s.getSellingPaidAmount(), s.getSellingDueAmount(),};
+
+            for (int j = 0; j < 9; j++) {
                 data[i][j] = o[j];
             }
         }
@@ -523,9 +518,7 @@ public class SalesReportApp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton branchMenu;
-    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;
     private com.toedter.calendar.demo.DateChooserPanelBeanInfo dateChooserPanelBeanInfo1;
     private com.toedter.calendar.DateUtil dateUtil1;

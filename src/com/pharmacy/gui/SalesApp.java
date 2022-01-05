@@ -53,7 +53,7 @@ public class SalesApp extends javax.swing.JFrame {
         Random random = new Random();
         int n = random.nextInt(1000) + 1;
         String val = String.valueOf(n);
-        salesCode.setText(val);
+        salesCode.setText("S"+val);
         return n;
     }
 
@@ -87,6 +87,7 @@ public class SalesApp extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        salesDate = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         sellingDiscountPercentage = new javax.swing.JTextField();
@@ -103,9 +104,6 @@ public class SalesApp extends javax.swing.JFrame {
         remove = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         addSalesTable = new javax.swing.JTable();
-        btnAdd = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -124,12 +122,10 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         salesGender = new javax.swing.JComboBox();
-        jLabel16 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         paymentType = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
         salesAddress = new javax.swing.JTextField();
-        salesDate = new javax.swing.JTextField();
         processPayment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -267,6 +263,22 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Sales");
 
+        salesDate.setEditable(false);
+        salesDate.setBackground(new java.awt.Color(0, 102, 153));
+        salesDate.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        salesDate.setForeground(new java.awt.Color(255, 255, 255));
+        salesDate.setBorder(null);
+        salesDate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salesDateMouseClicked(evt);
+            }
+        });
+        salesDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salesDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -274,12 +286,16 @@ public class SalesApp extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(442, 442, 442)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(salesDate, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(salesDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 11, Short.MAX_VALUE))
         );
 
@@ -401,35 +417,15 @@ public class SalesApp extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(addSalesTable);
 
-        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
-        btnAdd.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
-        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("UPDATE");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
-        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("DELETE");
-
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
         btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
         btnClear.setText("CLEAR");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel18.setText("Medicine Name");
@@ -489,7 +485,7 @@ public class SalesApp extends javax.swing.JFrame {
         btnPayment.setBackground(new java.awt.Color(0, 0, 0));
         btnPayment.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnPayment.setForeground(new java.awt.Color(255, 255, 255));
-        btnPayment.setText("Payment ");
+        btnPayment.setText("Invoice");
         btnPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPaymentActionPerformed(evt);
@@ -499,6 +495,7 @@ public class SalesApp extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         salesCode.setEditable(false);
+        salesCode.setBorder(null);
         salesCode.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 salesCodeMouseClicked(evt);
@@ -512,15 +509,12 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel19.setText("Contact");
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel11.setText("Code");
+        jLabel11.setText("Invoice #");
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel20.setText("Gender");
 
         salesGender.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Male", "Female", "Other" }));
-
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel16.setText("Date");
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setText("Payment Type");
@@ -530,38 +524,35 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Address");
 
-        salesDate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                salesDateMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel29))
-                .addGap(45, 45, 45)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(salesAddress)
-                        .addComponent(paymentType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(salesGender, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(salesDate))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(salesCode, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                        .addComponent(salesContact)
-                        .addComponent(salesName)))
-                .addGap(29, 29, 29))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel29))
+                        .addGap(45, 45, 45)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(paymentType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(salesAddress)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(salesGender, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(salesCode, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(salesContact)
+                                .addComponent(salesName)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,14 +573,7 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salesGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel16))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(salesDate, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paymentType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29))
@@ -597,10 +581,12 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(salesAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(74, 74, 74))
         );
 
         processPayment.setBackground(new java.awt.Color(255, 0, 0));
+        processPayment.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        processPayment.setForeground(new java.awt.Color(255, 255, 255));
         processPayment.setText("PAY NOW");
         processPayment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -616,15 +602,11 @@ public class SalesApp extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(btnUpdate)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnDelete)
-                        .addGap(44, 44, 44)
+                        .addGap(303, 303, 303)
+                        .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(70, 70, 70)
                         .addComponent(btnPayment))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -633,9 +615,7 @@ public class SalesApp extends javax.swing.JFrame {
                             .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -653,16 +633,12 @@ public class SalesApp extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(122, Short.MAX_VALUE))
+                    .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -828,58 +804,7 @@ public class SalesApp extends javax.swing.JFrame {
         sellingPaidAmount.setText(Double.valueOf(s.getSellingPaidAmount()).toString());
         sellingDueAmount.setText(Double.valueOf(s.getSellingDueAmount()).toString());
 
-    }
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        Sales sales = new Sales();
-        sales.setSalesCode(salesCode.getText());
-        sales.setSalesName(salesName.getText());
-        sales.setSalesContact(salesContact.getText());
-        sales.setSalesAddress(salesAddress.getText());
-        sales.setSalesGender(salesGender.getSelectedItem().toString());
-//        sales.setSalesDate(salesDate.getDate());
-        sales.setMedicineName(medicineName.getText());
-        sales.setPaymentType(paymentType.getSelectedItem().toString());
-        sales.setSellingDiscountPercentage(Double.valueOf(sellingDiscountPercentage.getText()));
-        sales.setSellingVat(Double.valueOf(sellingVat.getText()));
-        sales.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
-        sales.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
-        sales.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
-
-        int status = new SalesDao().save(sales);
-
-        if (status > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Sales Saved!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Sales NOT Saved!");
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-        Sales sales = new Sales();
-        sales.setSalesCode(salesCode.getText());
-        sales.setSalesName(salesName.getText());
-        sales.setSalesContact(salesContact.getText());
-        sales.setSalesAddress(salesAddress.getText());
-        sales.setSalesGender(salesGender.getSelectedItem().toString());
-//        sales.setSalesDate(salesDate.getDate());
-        sales.setMedicineName(medicineName.getText());
-        sales.setPaymentType(paymentType.getSelectedItem().toString());
-        sales.setSellingDiscountPercentage(Double.valueOf(sellingDiscountPercentage.getText()));
-        sales.setSellingVat(Double.valueOf(sellingVat.getText()));
-        sales.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
-        sales.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
-        sales.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
-        int status = new SalesDao().update(sales);
-
-        if (status > 0) {
-            JOptionPane.showMessageDialog(rootPane, "Sales update!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Sales NOT update!");
-        }
-    }//GEN-LAST:event_btnUpdateActionPerformed
-    Medicine mm;
+    }    Medicine mm;
     int tQty;
     double tPrice;
     int row;
@@ -888,8 +813,8 @@ public class SalesApp extends javax.swing.JFrame {
         String mName = medicineName.getText();
         Medicine m = new MedicineDao().getByName(mName);
         System.out.println(m.getMedicineName());
-        if (m.getMedicineName() != null) {
-            System.out.println("null");
+        if (m.getMedicineName() != null && Integer.valueOf(quantity.getText())<= m.getMedicineQuantity()) {
+//            System.out.println("null");
             salesLabel.setText(m.getMedicineCode() + " " + m.getMedicineName() + " " + m.getSalesSellingPrice() + " ");
             int pQuantity = Integer.valueOf(quantity.getText());
             DefaultTableModel model = (DefaultTableModel) addSalesTable.getModel();
@@ -907,31 +832,16 @@ public class SalesApp extends javax.swing.JFrame {
             m = null;
             quantity.setText(null);
         } else {
-            System.out.println("NOT null");
-            JOptionPane.showMessageDialog(rootPane, "NOT Found");
+//            System.out.println("NOT null");
+            JOptionPane.showMessageDialog(rootPane, "NOT Enough Stock");
         }
     }//GEN-LAST:event_btnAddCalculationActionPerformed
-    private void tableDataGet() {
-//        for (int i = 0; i < addSalesTable.getRowCount(); i++) {
-//            Sales s = new Sales();
-
-//            s.setSalesCode(addSalesTable.getValueAt(i, 0).toString());
-//            s.setMedicineName(addSalesTable.getValueAt(i, 1).toString());
-//            s.set(addSalesTable.getValueAt(i, 1).toString());
-//            addSalesTable.getValueAt(i, 0).toString();
-//            addSalesTable.getValueAt(i, 1).toString();
-//            addSalesTable.getValueAt(i, 2).toString();
-//            addSalesTable.getValueAt(i, 3).toString();
-//            addSalesTable.getValueAt(i, 4).toString();
-////            invoice.add(s);
-//            System.out.println(addSalesTable.getValueAt(i, 0).toString());
-//        }
-    }
+ 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         // TODO add your handling code here:
         System.err.println(addSalesTable.getRowCount());
         double totalAmount = Double.valueOf(addSalesTable.getValueAt(row, 4).toString());
-        System.out.println(totalAmount);
+//        System.out.println(totalAmount);
         double amoutAfterDeduction = Double.valueOf(sellingTotalAmount.getText()) - totalAmount;
         tPrice = Math.round(tPrice - totalAmount);
         sellingTotalAmount.setText(String.valueOf(amoutAfterDeduction));
@@ -1021,14 +931,61 @@ public class SalesApp extends javax.swing.JFrame {
                 medicine.setMedicineCode(addSalesTable.getValueAt(i, 0).toString());
                 medicine.setMedicineQuantity(Integer.valueOf(addSalesTable.getValueAt(i, 2).toString()));
                 new MedicineDao().updateStock(medicine, salesCode.getText());
-            }
-            
+            } 
+        }
+         Sales sales = new Sales();
+        sales.setSalesCode(salesCode.getText());
+        sales.setSalesName(salesName.getText());
+        sales.setSalesContact(salesContact.getText());
+        sales.setSalesAddress(salesAddress.getText());
+        sales.setSalesGender(salesGender.getSelectedItem().toString());
+        sales.setSalesDate(salesDate.getText().toString());
+        sales.setMedicineName(medicineName.getText());
+        sales.setPaymentType(paymentType.getSelectedItem().toString());
+//        sales.setStatus(paymentType.getSelectedItem().toString());
+        
+        sales.setSellingDiscountPercentage(Double.valueOf(sellingDiscountPercentage.getText()));
+        sales.setSellingVat(Double.valueOf(sellingVat.getText()));
+        sales.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
+        sales.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
+        sales.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
 
-            
+        int status = new SalesDao().save(sales);
+
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Sales Saved!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Sales NOT Saved!");
         }
         
         
     }//GEN-LAST:event_processPaymentActionPerformed
+
+    private void salesDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salesDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salesDateActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_btnClearActionPerformed
+    public void clear() {
+    medicineName.setText("");
+    quantity.setText("");
+//    addSalesTable.setToolTipText("");
+    sellingTotalAmount.setText("");
+    sellingDiscountPercentage.setText("");
+    sellingVat.setText("");
+    subTotal.setText("");
+    sellingPaidAmount.setText("");
+    sellingDueAmount.setText("");
+//    salesCode.setText("");
+    salesName.setText("");
+    salesContact.setText("");
+    salesGender.setSelectedIndex(0);
+    paymentType.setSelectedIndex(0);
+    salesAddress.setText("");
+    }
     public void dueAmountCalculate() {
         double total = Double.valueOf(subTotal.getText());
         double paid = Double.valueOf(sellingPaidAmount.getText());
@@ -1078,12 +1035,9 @@ public class SalesApp extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable addSalesTable;
     private javax.swing.JButton branchMenu;
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddCalculation;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnPayment;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;
     private com.toedter.calendar.demo.DateChooserPanelBeanInfo dateChooserPanelBeanInfo1;
     private com.toedter.calendar.DateUtil dateUtil1;
@@ -1091,7 +1045,6 @@ public class SalesApp extends javax.swing.JFrame {
     private com.toedter.calendar.JCalendarBeanInfo jCalendarBeanInfo1;
     private com.toedter.calendar.JDayChooserBeanInfo jDayChooserBeanInfo1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;

@@ -72,7 +72,6 @@ public class MedicineReportApp extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         medicineReportTable = new javax.swing.JTable();
-        btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
 
@@ -273,10 +272,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
         medicineReportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
@@ -288,11 +284,6 @@ public class MedicineReportApp extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(medicineReportTable);
-
-        btnClear.setBackground(new java.awt.Color(0, 0, 0));
-        btnClear.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnClear.setForeground(new java.awt.Color(255, 255, 255));
-        btnClear.setText("CLEAR");
 
         btnDelete.setBackground(new java.awt.Color(0, 0, 0));
         btnDelete.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -321,12 +312,10 @@ public class MedicineReportApp extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(297, 297, 297)
+                .addGap(351, 351, 351)
                 .addComponent(btnUpdate)
-                .addGap(56, 56, 56)
+                .addGap(73, 73, 73)
                 .addComponent(btnDelete)
-                .addGap(49, 49, 49)
-                .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -335,11 +324,10 @@ public class MedicineReportApp extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -503,7 +491,7 @@ public class MedicineReportApp extends javax.swing.JFrame {
 //            System.out.println(medicine.getMedicineBatchNo());
 //        }
         try {
-            String columns[] = {"medicine_code", "medicine_name", "medicine_manufacturing_date", "medicine_expiration_date", "medicine_batch_no", "medicine_buying_price", "medicine_quantity", "medicine_discount", "medicine_vat", "medicine_total_amounnt", "medicine_selling_percent", "sales_selling_price", "branch_location", "company_name", "medicine_item_name"};
+            String columns[] = {"Code", "Medicine Name", "Manufacturing Date", "Expiration Date", "Batch No", "Buying Price", "Quantity", "Discount(%)", "Vat(%)", "Total Amounnt", "Selling(%)", "Selling Price", "Branch Location", "Company Name", "Item Name"};
             String data[][] = new String[m.size()][30];
             String sql = "select * from medicine";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -594,7 +582,6 @@ public class MedicineReportApp extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton branchMenu;
-    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton companyMenu;

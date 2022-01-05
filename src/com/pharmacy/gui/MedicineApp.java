@@ -14,6 +14,7 @@ import com.pharmacy.model.Company;
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.MedicineItem;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,13 +45,21 @@ public class MedicineApp extends javax.swing.JFrame {
         for (int i = 0; i < medicineItem.size(); i++) {
             medicineItemName.addItem(medicineItem.get(i).getMedicineItemName());
         }
+        getInvoiceNo();
     }
 
     MedicineApp(Medicine s) {
         initComponents();
         addValue(s);
+        getInvoiceNo();
     }
-
+public int getInvoiceNo(){
+        Random random = new Random();
+        int n = random.nextInt(1000) + 1;
+        String val = String.valueOf(n);
+        medicineCode.setText("M"+val);
+        return n;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -292,7 +301,7 @@ public class MedicineApp extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Medicine");
+        jLabel2.setText("Buy Medicine");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -300,8 +309,8 @@ public class MedicineApp extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(442, 442, 442)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(461, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -329,6 +338,9 @@ public class MedicineApp extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Expiration Date ");
+
+        medicineCode.setEditable(false);
+        medicineCode.setBorder(null);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setText("Manufacturing Date");
@@ -565,7 +577,7 @@ public class MedicineApp extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -690,7 +702,7 @@ public class MedicineApp extends javax.swing.JFrame {
         medicineExpirationDate.setDate(s.getMedicineExpirationDate());
         medicineBatchNo.setText(s.getMedicineBatchNo());
         medicineBuyingPrice.setText(Double.valueOf(s.getMedicineBuyingPrice()).toString());
-        medicineQuantity.setText(Double.valueOf(s.getMedicineQuantity()).toString());
+        medicineQuantity.setText(Integer.valueOf(s.getMedicineQuantity()).toString());
         medicineDiscount.setText(Double.valueOf(s.getMedicineDiscount()).toString());
         medicineVat.setText(Double.valueOf(s.getMedicineVat()).toString());
         medicineTotalAmounnt.setText(Double.valueOf(s.getMedicineTotalAmounnt()).toString());

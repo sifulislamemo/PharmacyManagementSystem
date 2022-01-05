@@ -5,7 +5,16 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.MedicineDao;
+import com.pharmacy.model.Medicine;
+import com.pharmacy.util.DBConnection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,8 +27,41 @@ public class StockReportApp extends javax.swing.JFrame {
      */
     public StockReportApp() {
         initComponents();
+        getAllMedicineReport();
+    }
+private void getAllMedicineReport() {
+List<Medicine> m = new MedicineDao().getAll();
+    try {
+       String columns[] = {"Code", "Medicine Name", "Medicine Quantity", "Manufacturing Date", "Expiration Date", "Batch No"};
+       String data[][] = new String[m.size()][30];
+            String sql = "select * from medicine";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ResultSet res = ps.executeQuery();
+            int i = 0;
+            while (res.next()) {
+//                int id = res.getInt("id");
+                String mCode = res.getString("medicine_code");
+                String mName = res.getString("medicine_name");
+                String mQuantity = res.getString("medicine_quantity");
+                String mManufacturing = res.getString("medicine_manufacturing_date");
+                String mExpiration = res.getString("medicine_expiration_date");
+                String mBatch = res.getString("medicine_batch_no");
+            
+            data[i][0] = mCode;
+                data[i][1] = mName;
+                data[i][2] = mQuantity;
+                data[i][3] = mManufacturing;
+                data[i][4] = mExpiration;
+                data[i][5] = mBatch;
+                i++;
+            }
+            DefaultTableModel model = new DefaultTableModel(data, columns);
+            tblStockReport.setModel(model);
+    } catch (Exception e) {
+         Logger.getLogger(BranchApp.class.getName()).log(Level.SEVERE, null, e);
     }
 
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
