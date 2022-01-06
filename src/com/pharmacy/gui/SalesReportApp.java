@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 package com.pharmacy.gui;
-
 import com.pharmacy.dao.SalesDao;
+import com.pharmacy.dao.SellingDAO;
 import com.pharmacy.model.Sales;
+import com.pharmacy.model.SellingPerUnit;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author USER
@@ -28,6 +28,8 @@ public class SalesReportApp extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+    List <SellingPerUnit> sellingPerUnit;
+//    List <Medicine> sellingPerUnit;
     public SalesReportApp() {
         initComponents();
         getAllSalesReport();
@@ -402,12 +404,15 @@ public class SalesReportApp extends javax.swing.JFrame {
     private void salesReportTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesReportTableMouseClicked
         // TODO add your handling code here:
         int row = salesReportTable.rowAtPoint(evt.getPoint());
-        s = new Sales();
-        s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 0).toString());
-        s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
-        s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
-        s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
-        s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
+        String invoice = salesReportTable.getValueAt(row, 0).toString();
+        new SellingDAO().getByInvoice(invoice);
+        new InvoiceUnit(invoice).setVisible(true);
+//        s = new Sales();
+//        s.setSalesCode(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 0).toString());
+//        s.setSalesName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 1).toString());
+//        s.setSalesContact(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 2).toString());
+//        s.setSalesAddress(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 3).toString());
+//        s.setSalesGender(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 4).toString());
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //        Date date = null;
 //        try {
@@ -416,15 +421,15 @@ public class SalesReportApp extends javax.swing.JFrame {
 //            Logger.getLogger(SalesReportApp.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
+//        s.setSalesDate(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 5).toString());
 //        s.setMedicineName(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString());
-        s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString());
+//        s.setPaymentType(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 6).toString());
 //        s.setStatus(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 8).toString());
 //        s.setSellingPrice(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 9).toString()));
 //        s.setSellingQuantity(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 10).toString()));
 //        s.setSellingDiscountPercentage(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 11).toString()));
 //        s.setSellingVat(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 12).toString()));
-        s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString()));
+//        s.setSellingTotalAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 7).toString()));
         
 //        s.setSellingPaidAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 14).toString()));
 //        s.setSellingDueAmount(Double.valueOf(salesReportTable.getValueAt(salesReportTable.getSelectedRow(), 15).toString()));
