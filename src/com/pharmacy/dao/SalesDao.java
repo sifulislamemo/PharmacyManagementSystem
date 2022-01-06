@@ -2,6 +2,7 @@ package com.pharmacy.dao;
 
 import com.pharmacy.common.ICommonInterface;
 import com.pharmacy.model.Sales;
+import com.pharmacy.model.SellingPerUnit;
 import com.pharmacy.util.DBConnection;
 import java.sql.Connection;
 import java.sql.Date;
@@ -118,7 +119,32 @@ public class SalesDao implements ICommonInterface<Sales> {
     public Sales getByID(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+     public List<SellingPerUnit> getByInvoice(String invoice){
+             String sql = "select * from selling where invoice_no = ?";
+List<SellingPerUnit> selling = new ArrayList<SellingPerUnit>();
+     try {
+            con = DBConnection.getConnection();
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            int i = 0;
+            while (rs.next()) {
+//                System.out.println(rs.getString("sales_code"));
+                Sales sales = new Sales();
+                sales.setId(rs.getInt("id"));
+                sales.setSalesCode(rs.getString("medicine_code"));
+            }
+            } catch (Exception e) {
+            
+        } finally {
+            try {
+                ps.close();
+                con.close();
+            } catch (Exception e) {
+            }
+        }
+//        System.out.println(m);
+        return selling;
+     }
     @Override
     public List<Sales> getAll() {
         String sql = "select * from sales";

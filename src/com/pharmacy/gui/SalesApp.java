@@ -5,8 +5,10 @@
  */
 package com.pharmacy.gui;
 
+import com.pharmacy.dao.HomeDeliveryDao;
 import com.pharmacy.dao.MedicineDao;
 import com.pharmacy.dao.SalesDao;
+import com.pharmacy.model.HomeDelivery;
 import com.pharmacy.model.Invoice;
 import com.pharmacy.model.Medicine;
 import com.pharmacy.model.Sales;
@@ -32,6 +34,8 @@ public class SalesApp extends javax.swing.JFrame {
      * Creates new form Main
      */
     List<Sales> sales;
+    List<HomeDelivery> homeDelivery;
+    
 
    
 
@@ -123,10 +127,11 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         salesGender = new javax.swing.JComboBox();
         jLabel29 = new javax.swing.JLabel();
-        paymentType = new javax.swing.JComboBox<>();
+        paymentType = new javax.swing.JComboBox<String>();
         jLabel17 = new javax.swing.JLabel();
         salesAddress = new javax.swing.JTextField();
         processPayment = new javax.swing.JButton();
+        btnHomeDelivery = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
@@ -519,7 +524,7 @@ public class SalesApp extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel29.setText("Payment Type");
 
-        paymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "bKash", "Nagod", " " }));
+        paymentType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cash", "bKash", "Nagod", " " }));
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("Address");
@@ -594,6 +599,16 @@ public class SalesApp extends javax.swing.JFrame {
             }
         });
 
+        btnHomeDelivery.setBackground(new java.awt.Color(255, 0, 0));
+        btnHomeDelivery.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnHomeDelivery.setForeground(new java.awt.Color(255, 255, 255));
+        btnHomeDelivery.setText("Home Delivery");
+        btnHomeDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeDeliveryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -604,9 +619,11 @@ public class SalesApp extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(303, 303, 303)
                         .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnHomeDelivery)
+                        .addGap(29, 29, 29)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
+                        .addGap(18, 18, 18)
                         .addComponent(btnPayment))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -637,8 +654,9 @@ public class SalesApp extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(processPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHomeDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -969,6 +987,47 @@ public class SalesApp extends javax.swing.JFrame {
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void btnHomeDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeDeliveryActionPerformed
+        // TODO add your handling code here:
+        int logOut = JOptionPane.showConfirmDialog(null, "Do you want to Pay?", "Select", JOptionPane.YES_NO_OPTION);
+        if (logOut == 0) {
+            
+            int rowCount = addSalesTable.getRowCount();
+            for (int i = 0; i < rowCount; i++) {
+                System.out.println(addSalesTable.getValueAt(i, 0).toString());
+                System.out.println(addSalesTable.getValueAt(i, 2).toString());
+                Medicine medicine = new Medicine();
+                medicine.setMedicineCode(addSalesTable.getValueAt(i, 0).toString());
+                medicine.setMedicineQuantity(Integer.valueOf(addSalesTable.getValueAt(i, 2).toString()));
+                new MedicineDao().updateStock(medicine, salesCode.getText());
+            } 
+        }
+         HomeDelivery homeDelivery = new HomeDelivery();
+        homeDelivery.setSalesCode(salesCode.getText());
+        homeDelivery.setSalesName(salesName.getText());
+        homeDelivery.setSalesContact(salesContact.getText());
+        homeDelivery.setSalesAddress(salesAddress.getText());
+        homeDelivery.setSalesGender(salesGender.getSelectedItem().toString());
+        homeDelivery.setSalesDate(salesDate.getText().toString());
+        homeDelivery.setMedicineName(medicineName.getText());
+        homeDelivery.setPaymentType(paymentType.getSelectedItem().toString());
+//        sales.setStatus(paymentType.getSelectedItem().toString());
+        
+        homeDelivery.setSellingDiscountPercentage(Double.valueOf(sellingDiscountPercentage.getText()));
+        homeDelivery.setSellingVat(Double.valueOf(sellingVat.getText()));
+        homeDelivery.setSellingTotalAmount(Double.valueOf(sellingTotalAmount.getText()));
+        homeDelivery.setSellingPaidAmount(Double.valueOf(sellingPaidAmount.getText()));
+        homeDelivery.setSellingDueAmount(Double.valueOf(sellingDueAmount.getText()));
+
+        int status = new HomeDeliveryDao().save(homeDelivery);
+
+        if (status > 0) {
+            JOptionPane.showMessageDialog(rootPane, "Home Delivery Saved!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Home Delivery NOT Saved!");
+        }
+    }//GEN-LAST:event_btnHomeDeliveryActionPerformed
     public void clear() {
     medicineName.setText("");
     quantity.setText("");
@@ -1037,6 +1096,7 @@ public class SalesApp extends javax.swing.JFrame {
     private javax.swing.JButton branchMenu;
     private javax.swing.JButton btnAddCalculation;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnHomeDelivery;
     private javax.swing.JButton btnPayment;
     private javax.swing.JButton companyMenu;
     private com.toedter.calendar.demo.DateChooserPanelBeanInfo dateChooserPanelBeanInfo1;
